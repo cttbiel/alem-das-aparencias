@@ -252,7 +252,7 @@ const S1 = () => (
       </div>
     </div>
 
-    {/* Coluna direita — imagem full-bleed, base alinhada */}
+    {/* Coluna direita — fundo claro editorial + bolinhas; foto apoiada na base */}
     <div
       style={{
         margin: 0,
@@ -260,34 +260,46 @@ const S1 = () => (
         height: "100%",
         width: "100%",
         minHeight: 0,
-        backgroundColor: "#130603",
         position: "relative",
         overflow: "hidden",
         boxSizing: "border-box",
+        background: `linear-gradient(165deg, ${C.light} 0%, ${C.wheatPale} 45%, ${C.mid} 100%)`,
       }}
     >
       <div
         style={{
           position: "absolute",
-          top: -60,
-          right: -60,
-          width: 240,
-          height: 240,
-          borderRadius: "50%",
-          backgroundColor: C.terracotta,
-          opacity: 0.07,
+          inset: 0,
+          backgroundImage: `radial-gradient(${C.muted}26 1px, transparent 1px)`,
+          backgroundSize: "20px 20px",
+          opacity: 0.55,
+          pointerEvents: "none",
         }}
       />
       <div
         style={{
           position: "absolute",
-          bottom: -30,
-          left: -30,
-          width: 180,
-          height: 180,
+          top: "-8%",
+          right: "-6%",
+          width: "min(55%, 280px)",
+          height: "min(55%, 280px)",
+          borderRadius: "50%",
+          backgroundColor: C.terracotta,
+          opacity: 0.06,
+          pointerEvents: "none",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-5%",
+          left: "-4%",
+          width: "min(45%, 220px)",
+          height: "min(45%, 220px)",
           borderRadius: "50%",
           backgroundColor: C.ochre,
           opacity: 0.07,
+          pointerEvents: "none",
         }}
       />
       {IMG_CAPA ? (
@@ -295,19 +307,21 @@ const S1 = () => (
           src={IMG_CAPA}
           alt="Alessandra Nogueira"
           style={{
-            position: "absolute",
-            inset: 0,
+            position: "relative",
+            zIndex: 1,
             width: "100%",
             height: "100%",
             margin: 0,
             padding: 0,
             display: "block",
-            objectFit: "cover",
+            objectFit: "contain",
             objectPosition: "bottom center",
           }}
         />
       ) : (
-        <Slot src={null} alt="" h="100%" w="100%" pos="bottom center" dark radius={0} />
+        <div style={{ position: "relative", zIndex: 1, height: "100%", width: "100%" }}>
+          <Slot src={null} alt="" h="100%" w="100%" pos="bottom center" dark={false} radius={0} />
+        </div>
       )}
     </div>
     <PgNum n={1} />
