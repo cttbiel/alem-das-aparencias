@@ -23,7 +23,7 @@ const A4L_W = "297mm";
 const A4L_H = "210mm";
 
 /* ── IMAGENS (/assets/) ─────────────────────────────────────────────────── */
-const IMG_CAPA = "/assets/Alessandra centralizada mão no rosto_3.jpg";
+const IMG_CAPA = "/assets/Alessandra centralizada mão no rosto.png";
 const IMG_DAVIALE = "/assets/Davi e Alessandra fantasiados.jpg";
 const IMG_PALCO1 = "/assets/Alessandra contando histórias 1.jpg";
 const IMG_PALCO2 = "/assets/Alessandra contando histórias 2.jpg";
