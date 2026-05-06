@@ -27,6 +27,7 @@ const IMG_CAPA = "/assets/Alessandra centralizada mão no rosto.png";
 const IMG_DAVIALE = "/assets/Davi e Alessandra fantasiados.jpg";
 const IMG_PALCO1 = "/assets/Alessandra contando histórias 1.jpg";
 const IMG_PALCO2 = "/assets/Alessandra contando histórias 2.jpg";
+const TOTAL_PAGES = 9;
 
 /* ── ÍCONE CHECK (formatos cumulativos) ─────────────────────────────────── */
 type CheckVariant = "base" | "new";
@@ -179,7 +180,7 @@ const PgNum = ({ n, light }: { n: number; light?: boolean }) => (
       opacity: light ? 0.65 : 0.55,
     }}
   >
-    {String(n).padStart(2, "0")} / 07
+    {String(n).padStart(2, "0")} / {String(TOTAL_PAGES).padStart(2, "0")}
   </p>
 );
 
@@ -759,12 +760,12 @@ const S5 = () => (
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            objectPosition: "center right",
+            objectPosition: "center center",
             display: "block",
           }}
         />
       ) : (
-        <Slot src={null} alt="" h="100%" w="100%" pos="center right" dark radius={0} />
+        <Slot src={null} alt="" h="100%" w="100%" pos="center center" dark radius={0} />
       )}
     </div>
     <PgNum n={5} />
@@ -777,7 +778,6 @@ const fmts: Array<{
   title: string;
   dur: string;
   rec: boolean;
-  sub: string;
   desc: string;
   itens: Array<{ variant: CheckVariant; txt: string }>;
 }> = [
@@ -786,7 +786,6 @@ const fmts: Array<{
     title: "Sensibilização",
     dur: "até 90 minutos",
     rec: false,
-    sub: "Inclui",
     desc: "Palestra show em narrativa e canções — solo ou duo com músico. Experiência ao vivo para auditórios e espaços coletivos.",
     itens: [
       { variant: "new", txt: "Palestra show com narrativa e canções" },
@@ -799,7 +798,6 @@ const fmts: Array<{
     title: "Formação ampliada",
     dur: "Palestra show + encontro",
     rec: false,
-    sub: "Inclui tudo da Sensibilização, mais",
     desc: "Após a palestra show, encontro aprofundado com profissionais da educação ou da saúde para levar o vivido à prática.",
     itens: [
       { variant: "base", txt: "Todo o conteúdo da Sensibilização (formato 01)" },
@@ -812,7 +810,6 @@ const fmts: Array<{
     title: "Projeto completo",
     dur: "Programa personalizado",
     rec: true,
-    sub: "Inclui tudo da Formação ampliada, mais",
     desc: "Jornada contínua para instituições que buscam mudança real na cultura — além do dia do encontro.",
     itens: [
       { variant: "base", txt: "Todo o conteúdo da Formação ampliada (formatos 01 e 02)" },
@@ -831,210 +828,467 @@ const S6 = () => (
       backgroundColor: C.mid,
       display: "flex",
       flexDirection: "column",
-      gap: 20,
       alignItems: "center",
-      padding: "32px 36px 28px",
+      justifyContent: "center",
+      padding: "24px 36px 34px",
       boxSizing: "border-box",
       position: "relative",
       overflow: "hidden",
     }}
   >
-    <div style={{ textAlign: "center", display: "flex", flexDirection: "column", gap: 8, alignItems: "center" }}>
-      <Lbl ch="Formatos de contratação" />
-      <h2
-        style={{
-          fontFamily: SERIF,
-          fontSize: "clamp(20px,2.4vw,32px)",
-          fontWeight: 700,
-          color: C.dark,
-          lineHeight: 1.2,
-          margin: 0,
-        }}
-      >
-        A experiência certa
-        <br />
-        para cada momento.
-      </h2>
-      <Rule />
-      <p style={{ fontFamily: SANS, fontSize: 11, color: C.muted, lineHeight: 1.65, maxWidth: 480, margin: 0 }}>
-        Cada formato amplia o anterior. O traço mais claro indica o que é novidade naquele nível; o mais suave reforça o que já veio antes.
-      </p>
-    </div>
-
     <div
       style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(3, 1fr)",
-        gap: 14,
+        position: "absolute",
+        top: -46,
+        right: -36,
+        width: 210,
+        height: 210,
+        borderRadius: "50%",
+        backgroundColor: C.terracotta,
+        opacity: 0.06,
+        pointerEvents: "none",
+      }}
+    />
+    <div
+      style={{
+        position: "absolute",
+        bottom: -58,
+        left: -32,
+        width: 180,
+        height: 180,
+        borderRadius: "50%",
+        backgroundColor: C.ochre,
+        opacity: 0.06,
+        pointerEvents: "none",
+      }}
+    />
+    <div
+      style={{
         width: "100%",
-        maxWidth: 1020,
-        alignItems: "stretch",
-        flex: 1,
-        minHeight: 0,
+        maxWidth: 1040,
+        height: "100%",
+        display: "grid",
+        gridTemplateRows: "auto 1fr",
+        alignItems: "center",
+        gap: 18,
+        position: "relative",
+        zIndex: 1,
       }}
     >
-      {fmts.map((f, i) => (
-        <div
-          key={i}
+      <div
+        style={{
+          textAlign: "center",
+          display: "flex",
+          flexDirection: "column",
+          gap: 9,
+          alignItems: "center",
+          maxWidth: 640,
+        }}
+      >
+        <Lbl ch="Formatos de contratação" />
+        <h2
           style={{
-            backgroundColor: f.rec ? C.brick : C.card,
-            borderRadius: 14,
-            padding: "22px 18px",
-            border: f.rec ? "none" : `1px solid ${C.border}`,
-            display: "flex",
-            flexDirection: "column",
-            gap: 12,
-            position: "relative",
-            overflow: "hidden",
-            minHeight: 0,
+            fontFamily: SERIF,
+            fontSize: "clamp(22px,2.6vw,34px)",
+            fontWeight: 700,
+            color: C.dark,
+            lineHeight: 1.2,
+            margin: 0,
           }}
         >
-          <div
-            style={{
-              position: "absolute",
-              top: -10,
-              right: -2,
-              fontFamily: SERIF,
-              fontSize: 72,
-              fontWeight: 700,
-              color: f.rec ? "#fff" : C.terracotta,
-              opacity: 0.055,
-              lineHeight: 1,
-              userSelect: "none",
-            }}
-          >
-            {f.n}
-          </div>
+          A experiência certa
+          <br />
+          para cada momento.
+        </h2>
+        <Rule />
+      </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            gap: 18,
+            width: "100%",
+            alignItems: "stretch",
+          }}
+        >
+          {fmts.map((f, i) => (
+            <div
+              key={i}
+              style={{
+                backgroundColor: f.rec ? C.brick : C.card,
+                borderRadius: 18,
+                padding: "22px 20px 18px",
+                border: f.rec ? `1px solid ${C.wheat}28` : `1px solid ${C.border}`,
+                boxShadow: f.rec ? "0 10px 32px rgba(24,10,5,0.22)" : "0 10px 28px rgba(24,10,5,0.07)",
+                display: "flex",
+                flexDirection: "column",
+                gap: 11,
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div
                 style={{
-                  fontFamily: SANS,
-                  fontSize: 9,
+                  position: "absolute",
+                  top: -8,
+                  right: -4,
+                  fontFamily: SERIF,
+                  fontSize: 76,
                   fontWeight: 700,
-                  letterSpacing: "0.24em",
-                  textTransform: "uppercase",
-                  color: f.rec ? C.wheatPale : C.terracotta,
+                  color: f.rec ? "#fff" : C.terracotta,
+                  opacity: 0.055,
+                  lineHeight: 1,
+                  userSelect: "none",
                 }}
               >
                 {f.n}
-              </span>
-              {f.rec && (
-                <span
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: 5, position: "relative" }}>
+                <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+                  <span
+                    style={{
+                      fontFamily: SANS,
+                      fontSize: 9.5,
+                      fontWeight: 700,
+                      letterSpacing: "0.22em",
+                      textTransform: "uppercase",
+                      color: f.rec ? C.wheatPale : C.terracotta,
+                    }}
+                  >
+                    {f.n}
+                  </span>
+                  {f.rec && (
+                    <span
+                      style={{
+                        fontFamily: SANS,
+                        fontSize: 8,
+                        fontWeight: 700,
+                        color: C.brick,
+                        backgroundColor: C.wheat,
+                        padding: "2px 9px",
+                        borderRadius: 20,
+                        letterSpacing: "0.07em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      Recomendado
+                    </span>
+                  )}
+                </div>
+                <h3
                   style={{
-                    fontFamily: SANS,
-                    fontSize: 8,
+                    fontFamily: SERIF,
+                    fontSize: 20,
                     fontWeight: 700,
-                    color: C.brick,
-                    backgroundColor: C.wheat,
-                    padding: "2px 8px",
-                    borderRadius: 20,
-                    letterSpacing: "0.08em",
-                    textTransform: "uppercase",
+                    color: f.rec ? "#FBF8F2" : C.dark,
+                    margin: 0,
+                    lineHeight: 1.18,
                   }}
                 >
-                  Recomendado
-                </span>
-              )}
-            </div>
-            <h3
-              style={{
-                fontFamily: SERIF,
-                fontSize: 18,
-                fontWeight: 700,
-                color: f.rec ? "#FBF8F2" : C.dark,
-                margin: 0,
-                lineHeight: 1.2,
-              }}
-            >
-              {f.title}
-            </h3>
-            <p
-              style={{
-                fontFamily: SANS,
-                fontSize: 10,
-                fontWeight: 600,
-                color: f.rec ? C.wheat : C.terracotta,
-                margin: 0,
-                letterSpacing: "0.04em",
-              }}
-            >
-              ⏱ {f.dur}
-            </p>
-          </div>
+                  {f.title}
+                </h3>
+                <p
+                  style={{
+                    fontFamily: SANS,
+                    fontSize: 10.5,
+                    fontWeight: 600,
+                    color: f.rec ? C.wheat : C.terracotta,
+                    margin: 0,
+                    letterSpacing: "0.03em",
+                  }}
+                >
+                  ⏱ {f.dur}
+                </p>
+              </div>
 
-          <div style={{ width: 24, height: 2, backgroundColor: f.rec ? C.wheat : C.terracotta }} />
+              <div style={{ width: 28, height: 2.5, backgroundColor: f.rec ? C.wheat : C.terracotta, borderRadius: 1 }} />
 
-          <p
-            style={{
-              fontFamily: SANS,
-              fontSize: 11.5,
-              color: f.rec ? "#E8D0B0" : C.body,
-              lineHeight: 1.65,
-              margin: 0,
-            }}
-          >
-            {f.desc}
-          </p>
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 0,
-              borderTop: `1px solid ${f.rec ? C.wheat + "33" : C.border}`,
-              paddingTop: 10,
-              marginTop: "auto",
-            }}
-          >
-            <p
-              style={{
-                fontFamily: SANS,
-                fontSize: 9,
-                fontWeight: 600,
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: f.rec ? C.wheat : C.muted,
-                margin: "0 0 6px",
-              }}
-            >
-              {f.sub}
-            </p>
-            {f.itens.map(({ variant, txt }, j) => (
-              <div
-                key={j}
+              <p
                 style={{
-                  display: "flex",
-                  gap: 8,
-                  alignItems: "flex-start",
-                  padding: "4px 0",
-                  borderBottom: j < f.itens.length - 1 ? `1px solid ${f.rec ? "#ffffff11" : C.border + "88"}` : "none",
+                  fontFamily: SANS,
+                  fontSize: 12,
+                  color: f.rec ? "#E8D0B0" : C.body,
+                  lineHeight: 1.62,
+                  margin: 0,
                 }}
               >
-                <IconCheck variant={variant} onDark={f.rec} />
-                <span
-                  style={{
-                    fontFamily: SANS,
-                    fontSize: 11.5,
-                    color: variant === "new" ? (f.rec ? C.wheatPale : C.body) : f.rec ? "#C8A870" : C.muted,
-                    lineHeight: 1.5,
-                    fontWeight: variant === "new" ? 500 : 400,
-                  }}
-                >
-                  {txt}
-                </span>
+                {f.desc}
+              </p>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0,
+                  marginTop: 6,
+                  paddingTop: 12,
+                  borderTop: `1px solid ${f.rec ? C.wheat + "38" : C.border}`,
+                  backgroundColor: f.rec ? "rgba(0,0,0,0.14)" : "rgba(253,250,244,0.95)",
+                  marginLeft: -20,
+                  marginRight: -20,
+                  marginBottom: -18,
+                  paddingLeft: 20,
+                  paddingRight: 20,
+                  paddingBottom: 12,
+                  borderRadius: "0 0 16px 16px",
+                }}
+              >
+                {f.itens.map(({ variant, txt }, j) => (
+                  <div
+                    key={j}
+                    style={{
+                      display: "flex",
+                      gap: 9,
+                      alignItems: "flex-start",
+                      padding: "5px 0",
+                      borderBottom: j < f.itens.length - 1 ? `1px solid ${f.rec ? "#ffffff18" : C.border + "99"}` : "none",
+                    }}
+                  >
+                    <IconCheck variant={variant} onDark={f.rec} />
+                    <span
+                      style={{
+                        fontFamily: SANS,
+                        fontSize: 11.5,
+                        color: variant === "new" ? (f.rec ? C.wheatPale : C.body) : f.rec ? "#C8A870" : C.muted,
+                        lineHeight: 1.5,
+                        fontWeight: variant === "new" ? 500 : 400,
+                      }}
+                    >
+                      {txt}
+                    </span>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
     <PgNum n={6} />
   </section>
 );
 
-/* ── S7 · CONTATO ─────────────────────────────────────────────────────────── */
+/* ── S7 · QUEM JÁ CONFIOU ─────────────────────────────────────────────────── */
+const trustedBy = [
+  "/assets/instituicoes/CCBB.jpg",
+  "/assets/instituicoes/Colegio Batista Mineiro.png",
+  "/assets/instituicoes/Colegio Loyola.png",
+  "/assets/instituicoes/Colegio Magnum.png",
+  "/assets/instituicoes/Colegio Marista Dom Silverio.jpg",
+  "/assets/instituicoes/Colegio Santa Marcelina Belo Horizonte.png",
+  "/assets/instituicoes/Colegio Buritis Agostiniano.png",
+  "/assets/instituicoes/Colegio Santo Antonio.png",
+  "/assets/instituicoes/Colegio Santo Agostinho Agostinianos.jpg",
+  "/assets/instituicoes/Companhia das Letras.jpg",
+  "/assets/instituicoes/FTD EDUCACAO.png",
+  "/assets/instituicoes/SESI.png",
+  "/assets/instituicoes/Santa Doroteia.png",
+  "/assets/instituicoes/boni consilii.jpg",
+  "/assets/instituicoes/sesc.jpg",
+];
+
+const S7 = () => (
+  <section
+    style={{
+      height: "100%",
+      width: "100%",
+      backgroundColor: C.light,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "34px 42px",
+      boxSizing: "border-box",
+      position: "relative",
+      overflow: "hidden",
+    }}
+  >
+    <div style={{ width: "100%", maxWidth: 1080, display: "flex", flexDirection: "column", gap: 20 }}>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 10 }}>
+        <Lbl ch="Prova de confiança" />
+        <h2
+          style={{
+            fontFamily: SERIF,
+            fontSize: "clamp(24px,2.9vw,40px)",
+            fontWeight: 700,
+            color: C.dark,
+            lineHeight: 1.18,
+            margin: 0,
+          }}
+        >
+          Quem já caminhou com essa história.
+        </h2>
+        <Rule />
+        <p style={{ fontFamily: SANS, fontSize: 12, color: C.body, lineHeight: 1.7, margin: 0, maxWidth: 680 }}>
+          Escolas, instituições culturais e organizações que confiaram no trabalho da Alessandra para abrir conversas mais humanas sobre inclusão.
+        </p>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
+          gap: 14,
+          width: "100%",
+        }}
+      >
+        {trustedBy.map((src, i) => (
+          <div
+            key={i}
+            style={{
+              backgroundColor: "#fff",
+              border: `1px solid ${C.border}`,
+              borderRadius: 12,
+              height: 78,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "8px 12px",
+            }}
+          >
+            <img
+              src={src}
+              alt="Instituição parceira"
+              style={{
+                maxWidth: "100%",
+                maxHeight: "100%",
+                objectFit: "contain",
+                filter: "saturate(0.85) contrast(1.02)",
+              }}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+    <PgNum n={7} />
+  </section>
+);
+
+/* ── S8 · VOZES DE QUEM VIVEU ─────────────────────────────────────────────── */
+const socialProof: Array<{ quote: string; author: string; role?: string }> = [
+  {
+    quote:
+      "Simplesmente a melhor contadora de histórias. De uma delicadeza e inteligência que prende a atenção de todos, com tanta cultura e sabedoria em fazer histórias virarem lições.",
+    author: "Thais Costa",
+  },
+  {
+    quote:
+      "Alessandra, parabéns pelo momento maravilhoso e tão enriquecedor que nos proporcionou. Foi encantador ouvir você contar as histórias e nos fazer viajar através delas.",
+    author: "Rosangela",
+  },
+  {
+    quote: "Sempre com uma palavra que fala aos nossos corações. Você é sensacional!",
+    author: "EMEI Floramar",
+    role: "Instituição de ensino",
+  },
+  {
+    quote: "Que vídeo maravilhoso! Criança sendo criança! Acho você uma profissional incrível.",
+    author: "Jean Helcio",
+  },
+];
+
+const S8 = () => (
+  <section
+    style={{
+      height: "100%",
+      width: "100%",
+      backgroundColor: C.mid,
+      display: "grid",
+      gridTemplateColumns: "42% 58%",
+      boxSizing: "border-box",
+      position: "relative",
+      overflow: "hidden",
+    }}
+  >
+    <div style={{ position: "relative", backgroundColor: "#1f0d08", overflow: "hidden" }}>
+      <Slot src="/assets/AlessandraVestidoEscada.png" alt="Alessandra sorrindo" h="100%" w="100%" pos="center top" dark radius={0} />
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.34) 100%)",
+          pointerEvents: "none",
+        }}
+      />
+    </div>
+
+    <div
+      style={{
+        padding: "34px 42px",
+        display: "flex",
+        flexDirection: "column",
+        gap: 18,
+        justifyContent: "center",
+      }}
+    >
+      <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 580 }}>
+        <Lbl ch="Palavras que acolhem" />
+        <h2
+          style={{
+            fontFamily: SERIF,
+            fontSize: "clamp(24px,2.8vw,38px)",
+            fontWeight: 700,
+            color: C.dark,
+            lineHeight: 1.2,
+            margin: 0,
+          }}
+        >
+          Vozes de quem já viveu esse encontro.
+        </h2>
+        <Rule />
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+        {socialProof.map(({ quote, author, role }, i) => (
+          <blockquote
+            key={i}
+            style={{
+              margin: 0,
+              padding: "16px 16px 14px",
+              borderRadius: 12,
+              backgroundColor: C.card,
+              border: `1px solid ${C.border}`,
+              fontFamily: SERIF,
+              fontSize: 15,
+              color: C.body,
+              lineHeight: 1.55,
+              fontStyle: "italic",
+            }}
+          >
+            <span style={{ display: "block" }}>“{quote}”</span>
+            <cite
+              style={{
+                display: "block",
+                marginTop: 10,
+                fontFamily: SANS,
+                fontStyle: "normal",
+                fontSize: 10.5,
+                letterSpacing: "0.06em",
+                textTransform: "uppercase",
+                color: C.muted,
+              }}
+            >
+              {author}
+              {role ? ` · ${role}` : ""}
+            </cite>
+          </blockquote>
+        ))}
+      </div>
+    </div>
+    <PgNum n={8} />
+  </section>
+);
+
+/* ── S9 · CONTATO ─────────────────────────────────────────────────────────── */
 const WA_NUMBER = "5531993701428";
 const ctaItems = [
   {
@@ -1078,7 +1332,7 @@ const ctaItems = [
   },
 ];
 
-const S7 = () => (
+const S9 = () => (
   <section
     style={{
       height: "100%",
@@ -1188,21 +1442,47 @@ const S7 = () => (
         left: "50%",
         transform: "translateX(-50%)",
         display: "flex",
-        gap: 12,
         alignItems: "center",
-        whiteSpace: "nowrap",
-        flexWrap: "wrap",
-        justifyContent: "center",
-        maxWidth: "90%",
+        gap: 14,
+        width: "min(92%, 440px)",
+        padding: "0 8px",
       }}
     >
-      <div style={{ width: 24, height: 1, backgroundColor: C.wheat, opacity: 0.28 }} />
-      <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 11, color: C.wheat, opacity: 0.5, margin: 0 }}>
-        —— Além das Aparências, Alessandra Nogueira ——
+      <div
+        style={{
+          flex: 1,
+          height: 1,
+          minWidth: 20,
+          backgroundColor: C.wheat,
+          opacity: 0.38,
+        }}
+      />
+      <p
+        style={{
+          fontFamily: SERIF,
+          fontStyle: "italic",
+          fontSize: 11,
+          color: C.wheat,
+          opacity: 0.52,
+          margin: 0,
+          flexShrink: 0,
+          letterSpacing: "0.02em",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Além das Aparências - Alessandra Nogueira
       </p>
-      <div style={{ width: 24, height: 1, backgroundColor: C.wheat, opacity: 0.28 }} />
+      <div
+        style={{
+          flex: 1,
+          height: 1,
+          minWidth: 20,
+          backgroundColor: C.wheat,
+          opacity: 0.38,
+        }}
+      />
     </div>
-    <PgNum n={7} light />
+    <PgNum n={9} light />
   </section>
 );
 
@@ -1288,7 +1568,9 @@ const SLIDES = [
   { lbl: "A Experiência", C: S4 },
   { lbl: "O Impacto", C: S5 },
   { lbl: "Formatos", C: S6 },
-  { lbl: "Contato", C: S7 },
+  { lbl: "Quem já confiou", C: S7 },
+  { lbl: "Depoimentos", C: S8 },
+  { lbl: "Contato", C: S9 },
 ];
 
 export default function App() {
