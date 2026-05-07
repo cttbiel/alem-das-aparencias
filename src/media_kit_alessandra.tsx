@@ -181,6 +181,10 @@ const PgNum = ({ n, light, onPhoto }: { n: number; light?: boolean; onPhoto?: bo
       color: onPhoto ? "#FBF8F2" : light ? C.wheatPale : C.muted,
       opacity: onPhoto ? 0.92 : light ? 0.65 : 0.55,
       textShadow: onPhoto ? "0 1px 2px rgba(0,0,0,0.75), 0 0 14px rgba(0,0,0,0.35)" : undefined,
+      backgroundColor: onPhoto ? "rgba(24,10,5,0.52)" : "transparent",
+      border: onPhoto ? "1px solid rgba(255,255,255,0.2)" : "none",
+      borderRadius: onPhoto ? 999 : 0,
+      padding: onPhoto ? "3px 9px" : 0,
       WebkitPrintColorAdjust: onPhoto ? "exact" : undefined,
       printColorAdjust: onPhoto ? "exact" : undefined,
     }}
@@ -496,7 +500,7 @@ const S3 = () => (
         </div>
 
         <div style={leftBorder}>
-          <h3 style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 600, color: C.brick, margin: 0, fontStyle: "italic" }}>
+          <h3 style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 600, color: C.terracotta, margin: 0, fontStyle: "italic" }}>
             Alessandra
           </h3>
           <p
@@ -676,7 +680,7 @@ const S5 = () => (
       width: "100%",
       backgroundColor: C.light,
       display: "grid",
-      gridTemplateColumns: "1fr 38%",
+      gridTemplateColumns: "62% 38%",
       gap: 0,
       boxSizing: "border-box",
       position: "relative",
@@ -687,17 +691,17 @@ const S5 = () => (
   >
     <div
       style={{
-        padding: "36px 36px 36px 44px",
+        padding: "34px 30px 34px 44px",
         display: "flex",
         flexDirection: "column",
-        gap: 20,
+        gap: 18,
         boxSizing: "border-box",
         justifyContent: "center",
         minHeight: 0,
         overflow: "hidden",
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 640 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 11, maxWidth: 610 }}>
         <Lbl ch="O Impacto" />
         <h2
           style={{
@@ -725,18 +729,21 @@ const S5 = () => (
         </p>
       </div>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%", maxWidth: 640 }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 11, width: "100%", maxWidth: 610, marginTop: 4 }}>
         {audiences.map(({ t, d }, i) => (
           <div
             key={i}
             style={{
               display: "flex",
               flexDirection: "column",
-              gap: 8,
-              padding: "16px 18px",
-              borderTop: `3px solid ${C.terracotta}`,
-              backgroundColor: C.mid,
-              borderRadius: "0 0 12px 12px",
+              gap: 7,
+              padding: "14px 16px",
+              borderLeft: `4px solid ${C.terracotta}`,
+              borderTop: `1px solid ${C.border}`,
+              borderRight: `1px solid ${C.border}`,
+              borderBottom: `1px solid ${C.border}`,
+              backgroundColor: "#F5ECDD",
+              borderRadius: 12,
             }}
           >
             <h3 style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 700, color: C.brick, margin: 0 }}>{t}</h3>
@@ -772,6 +779,14 @@ const S5 = () => (
       ) : (
         <Slot src={null} alt="" h="100%" w="100%" pos="center center" dark radius={0} />
       )}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background: "linear-gradient(180deg, rgba(0,0,0,0) 68%, rgba(24,10,5,0.55) 100%)",
+        }}
+      />
     </div>
     <PgNum n={5} onPhoto />
   </section>
@@ -927,157 +942,171 @@ const S6 = () => (
             alignItems: "stretch",
           }}
         >
-          {fmts.map((f, i) => (
-            <div
-              key={i}
-              style={{
-                backgroundColor: f.rec ? C.brick : C.card,
-                borderRadius: 18,
-                padding: "22px 20px 18px",
-                border: f.rec ? `1px solid ${C.wheat}28` : `1px solid ${C.border}`,
-                boxShadow: f.rec ? "0 10px 32px rgba(24,10,5,0.22)" : "0 10px 28px rgba(24,10,5,0.07)",
-                display: "flex",
-                flexDirection: "column",
-                gap: 11,
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
+          {fmts.map((f, i) => {
+            const isPro = i === 1;
+            return (
               <div
+                key={i}
                 style={{
-                  position: "absolute",
-                  top: -8,
-                  right: -4,
-                  fontFamily: SERIF,
-                  fontSize: 76,
-                  fontWeight: 700,
-                  color: f.rec ? "#fff" : C.terracotta,
-                  opacity: 0.055,
-                  lineHeight: 1,
-                  userSelect: "none",
+                  background: f.rec
+                    ? C.brick
+                    : isPro
+                      ? "#F8F1E2"
+                      : C.card,
+                  borderRadius: 18,
+                  padding: "22px 20px 18px",
+                  border: f.rec ? `1px solid ${C.wheat}28` : isPro ? `1.5px solid ${C.wheat}88` : `1px solid ${C.border}`,
+                  boxShadow: f.rec
+                    ? "0 10px 32px rgba(24,10,5,0.22)"
+                    : isPro
+                      ? "0 14px 34px rgba(110,40,22,0.18)"
+                      : "0 10px 28px rgba(24,10,5,0.07)",
+                  transform: "none",
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 11,
+                  position: "relative",
+                  overflow: "hidden",
                 }}
               >
-                {f.n}
-              </div>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: -8,
+                    right: -4,
+                    fontFamily: SERIF,
+                    fontSize: 76,
+                    fontWeight: 700,
+                    color: f.rec ? "#fff" : isPro ? C.ochre : C.terracotta,
+                    opacity: isPro ? 0.1 : 0.055,
+                    lineHeight: 1,
+                    userSelect: "none",
+                  }}
+                >
+                  {f.n}
+                </div>
 
-              <div style={{ display: "flex", flexDirection: "column", gap: 5, position: "relative" }}>
-                <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
-                  <span
-                    style={{
-                      fontFamily: SANS,
-                      fontSize: 9.5,
-                      fontWeight: 700,
-                      letterSpacing: "0.22em",
-                      textTransform: "uppercase",
-                      color: f.rec ? C.wheatPale : C.terracotta,
-                    }}
-                  >
-                    {f.n}
-                  </span>
-                  {f.rec && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 5, position: "relative" }}>
+                  <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
                     <span
                       style={{
                         fontFamily: SANS,
-                        fontSize: 8,
+                        fontSize: 9.5,
                         fontWeight: 700,
-                        color: C.brick,
-                        backgroundColor: C.wheat,
-                        padding: "2px 9px",
-                        borderRadius: 20,
-                        letterSpacing: "0.07em",
+                        letterSpacing: "0.22em",
                         textTransform: "uppercase",
+                        color: f.rec ? C.wheatPale : isPro ? C.ochre : C.terracotta,
                       }}
                     >
-                      Recomendado
+                      {f.n}
                     </span>
-                  )}
+                    {f.rec && (
+                      <span
+                        style={{
+                          fontFamily: SANS,
+                          fontSize: 8,
+                          fontWeight: 700,
+                          color: C.brick,
+                          backgroundColor: C.wheat,
+                          padding: "2px 9px",
+                          borderRadius: 20,
+                          letterSpacing: "0.07em",
+                          textTransform: "uppercase",
+                        }}
+                      >
+                        Recomendado
+                      </span>
+                    )}
+                  </div>
+                  <h3
+                    style={{
+                      fontFamily: SERIF,
+                      fontSize: 20,
+                      fontWeight: 700,
+                      color: f.rec ? "#FBF8F2" : isPro ? "#2E1A0B" : C.dark,
+                      margin: 0,
+                      lineHeight: 1.18,
+                    }}
+                  >
+                    {f.title}
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: SANS,
+                      fontSize: 10.5,
+                      fontWeight: 600,
+                      color: f.rec ? C.wheat : isPro ? "#7A5522" : C.terracotta,
+                      margin: 0,
+                      letterSpacing: "0.03em",
+                    }}
+                  >
+                    ⏱ {f.dur}
+                  </p>
                 </div>
-                <h3
-                  style={{
-                    fontFamily: SERIF,
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color: f.rec ? "#FBF8F2" : C.dark,
-                    margin: 0,
-                    lineHeight: 1.18,
-                  }}
-                >
-                  {f.title}
-                </h3>
+
+                <div style={{ width: 28, height: 2.5, backgroundColor: f.rec ? C.wheat : isPro ? C.ochre : C.terracotta, borderRadius: 1 }} />
+
                 <p
                   style={{
                     fontFamily: SANS,
-                    fontSize: 10.5,
-                    fontWeight: 600,
-                    color: f.rec ? C.wheat : C.terracotta,
+                    fontSize: 12,
+                    color: f.rec ? "#E8D0B0" : isPro ? "#3A2513" : C.body,
+                    lineHeight: 1.62,
                     margin: 0,
-                    letterSpacing: "0.03em",
+                    fontWeight: isPro ? 500 : 400,
                   }}
                 >
-                  ⏱ {f.dur}
+                  {f.desc}
                 </p>
-              </div>
 
-              <div style={{ width: 28, height: 2.5, backgroundColor: f.rec ? C.wheat : C.terracotta, borderRadius: 1 }} />
-
-              <p
-                style={{
-                  fontFamily: SANS,
-                  fontSize: 12,
-                  color: f.rec ? "#E8D0B0" : C.body,
-                  lineHeight: 1.62,
-                  margin: 0,
-                }}
-              >
-                {f.desc}
-              </p>
-
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 0,
-                  marginTop: 6,
-                  paddingTop: 12,
-                  borderTop: `1px solid ${f.rec ? C.wheat + "38" : C.border}`,
-                  backgroundColor: f.rec ? "rgba(0,0,0,0.14)" : "rgba(253,250,244,0.95)",
-                  marginLeft: -20,
-                  marginRight: -20,
-                  marginBottom: -18,
-                  paddingLeft: 20,
-                  paddingRight: 20,
-                  paddingBottom: 12,
-                  borderRadius: "0 0 16px 16px",
-                }}
-              >
-                {f.itens.map(({ variant, txt }, j) => (
-                  <div
-                    key={j}
-                    style={{
-                      display: "flex",
-                      gap: 9,
-                      alignItems: "flex-start",
-                      padding: "5px 0",
-                      borderBottom: j < f.itens.length - 1 ? `1px solid ${f.rec ? "#ffffff18" : C.border + "99"}` : "none",
-                    }}
-                  >
-                    <IconCheck variant={variant} onDark={f.rec} />
-                    <span
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 0,
+                    marginTop: 6,
+                    paddingTop: 12,
+                    borderTop: `1px solid ${f.rec ? C.wheat + "38" : isPro ? "#B58B4A88" : C.border}`,
+                    backgroundColor: f.rec ? "rgba(0,0,0,0.14)" : isPro ? "#F8F1E2" : "rgba(253,250,244,0.95)",
+                    marginLeft: -20,
+                    marginRight: -20,
+                    marginBottom: -18,
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    paddingBottom: 12,
+                    borderRadius: "0 0 16px 16px",
+                  }}
+                >
+                  {f.itens.map(({ variant, txt }, j) => (
+                    <div
+                      key={j}
                       style={{
-                        fontFamily: SANS,
-                        fontSize: 11.5,
-                        color: variant === "new" ? (f.rec ? C.wheatPale : C.body) : f.rec ? "#C8A870" : C.muted,
-                        lineHeight: 1.5,
-                        fontWeight: variant === "new" ? 500 : 400,
+                        display: "flex",
+                        gap: 9,
+                        alignItems: "flex-start",
+                        padding: "5px 0",
+                        borderBottom: j < f.itens.length - 1 ? `1px solid ${f.rec ? "#ffffff18" : isPro ? "#B58B4A55" : C.border + "99"}` : "none",
                       }}
                     >
-                      {txt}
-                    </span>
-                  </div>
-                ))}
+                      <IconCheck variant={variant} onDark={f.rec} />
+                      <span
+                        style={{
+                          fontFamily: SANS,
+                          fontSize: 11.5,
+                          color: variant === "new" ? (f.rec ? C.wheatPale : isPro ? "#2E1A0B" : C.body) : f.rec ? "#C8A870" : isPro ? "#7A5522" : C.muted,
+                          lineHeight: 1.5,
+                          fontWeight: variant === "new" ? (isPro ? 600 : 500) : 400,
+                        }}
+                      >
+                        {txt}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
@@ -1200,10 +1229,6 @@ const socialProof: Array<{ quote: string; author: string; role?: string }> = [
     author: "EMEI Floramar",
     role: "Instituição de ensino",
   },
-  {
-    quote: "Que vídeo maravilhoso! Criança sendo criança! Acho você uma profissional incrível.",
-    author: "Jean Helcio",
-  },
 ];
 
 const S8 = () => (
@@ -1257,20 +1282,20 @@ const S8 = () => (
         <Rule />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 10 }}>
         {socialProof.map(({ quote, author, role }, i) => (
           <blockquote
             key={i}
             style={{
               margin: 0,
-              padding: "16px 16px 14px",
+              padding: "14px 18px 13px",
               borderRadius: 12,
               backgroundColor: C.card,
               border: `1px solid ${C.border}`,
               fontFamily: SERIF,
-              fontSize: 15,
+              fontSize: 16.5,
               color: C.body,
-              lineHeight: 1.55,
+              lineHeight: 1.58,
               fontStyle: "italic",
             }}
           >
