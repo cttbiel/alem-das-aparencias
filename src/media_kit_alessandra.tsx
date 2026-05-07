@@ -835,7 +835,7 @@ const S6 = () => (
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      padding: "24px 36px 34px",
+      padding: "38px 36px 34px",
       boxSizing: "border-box",
       position: "relative",
       overflow: "hidden",
@@ -871,13 +871,13 @@ const S6 = () => (
       style={{
         width: "100%",
         maxWidth: 1040,
-        height: "100%",
         display: "grid",
-        gridTemplateRows: "auto 1fr",
-        alignItems: "center",
-        gap: 18,
+        gridTemplateRows: "auto auto",
+        alignItems: "start",
+        gap: 28,
         position: "relative",
         zIndex: 1,
+        marginTop: 34,
       }}
     >
       <div
@@ -888,6 +888,7 @@ const S6 = () => (
           gap: 9,
           alignItems: "center",
           maxWidth: 640,
+          margin: "0 auto",
         }}
       >
         <Lbl ch="Formatos de contratação" />
@@ -914,6 +915,7 @@ const S6 = () => (
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          marginTop: 2,
         }}
       >
         <div
@@ -1526,6 +1528,8 @@ const PrintCSS = () => {
         .slide-wrap {
           page-break-after: always;
           break-after: page;
+          page-break-inside: avoid;
+          break-inside: avoid;
           margin: 0 !important;
           padding: 0 !important;
           display: block !important;
@@ -1547,8 +1551,10 @@ const PrintCSS = () => {
           border-radius: 0 !important;
           border: none !important;
           outline: none !important;
+          page-break-inside: avoid;
+          break-inside: avoid;
+          position: relative;
           vertical-align: top;
-          transform: translateZ(0);
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
@@ -1560,16 +1566,26 @@ const PrintCSS = () => {
         .slide-frame section {
           overflow: hidden !important;
           width: ${A4L_W} !important;
-          height: ${A4L_H} !important;
-          min-height: ${A4L_H} !important;
-          max-height: ${A4L_H} !important;
+          height: calc(${A4L_H} + 0.8mm) !important;
+          min-height: calc(${A4L_H} + 0.8mm) !important;
+          max-height: calc(${A4L_H} + 0.8mm) !important;
           box-sizing: border-box !important;
-          margin: 0 !important;
+          margin: 0 0 -0.8mm 0 !important;
+          padding: 0 !important;
+          outline: 1px solid transparent !important;
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
-        img {
+        img,
+        picture,
+        canvas {
           max-width: 100%;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: high-quality;
+          filter: none !important;
+          backface-visibility: hidden;
         }
         .mk-inst-logo {
           filter: none !important;
