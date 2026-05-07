@@ -166,8 +166,10 @@ const Rule = ({ light, w = 56 }: { light?: boolean; w?: number }) => (
     }}
   />
 );
-const PgNum = ({ n, light }: { n: number; light?: boolean }) => (
+const PgNum = ({ n, light, onPhoto }: { n: number; light?: boolean; onPhoto?: boolean }) => (
   <p
+    className="mk-pgnum"
+    data-on-photo={onPhoto ? "true" : undefined}
     style={{
       fontFamily: SANS,
       fontSize: 10,
@@ -176,8 +178,11 @@ const PgNum = ({ n, light }: { n: number; light?: boolean }) => (
       bottom: 20,
       right: 28,
       letterSpacing: "0.18em",
-      color: light ? C.wheatPale : C.muted,
-      opacity: light ? 0.65 : 0.55,
+      color: onPhoto ? "#FBF8F2" : light ? C.wheatPale : C.muted,
+      opacity: onPhoto ? 0.92 : light ? 0.65 : 0.55,
+      textShadow: onPhoto ? "0 1px 2px rgba(0,0,0,0.75), 0 0 14px rgba(0,0,0,0.35)" : undefined,
+      WebkitPrintColorAdjust: onPhoto ? "exact" : undefined,
+      printColorAdjust: onPhoto ? "exact" : undefined,
     }}
   >
     {String(n).padStart(2, "0")} / {String(TOTAL_PAGES).padStart(2, "0")}
@@ -768,7 +773,7 @@ const S5 = () => (
         <Slot src={null} alt="" h="100%" w="100%" pos="center center" dark radius={0} />
       )}
     </div>
-    <PgNum n={5} />
+    <PgNum n={5} onPhoto />
   </section>
 );
 
@@ -1144,6 +1149,7 @@ const S7 = () => (
         {trustedBy.map((src, i) => (
           <div
             key={i}
+            className="mk-logo-cell"
             style={{
               backgroundColor: "#fff",
               border: `1px solid ${C.border}`,
@@ -1158,6 +1164,8 @@ const S7 = () => (
             <img
               src={src}
               alt="Instituição parceira"
+              className="mk-inst-logo"
+              decoding="async"
               style={{
                 maxWidth: "100%",
                 maxHeight: "100%",
@@ -1494,16 +1502,38 @@ const PrintCSS = () => {
       *, *::before, *::after { box-sizing: border-box; }
       @media print {
         @page { size: A4 landscape; margin: 0; }
-        html, body { margin: 0 !important; padding: 0 !important; background: #fff !important; }
+        html, body {
+          margin: 0 !important;
+          padding: 0 !important;
+          background: #faf7f1 !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
         nav { display: none !important; }
-        .mk-root { padding: 0 !important; background: #fff !important; }
-        .mk-slides { padding: 0 !important; padding-top: 0 !important; }
+        .mk-root {
+          padding: 0 !important;
+          margin: 0 !important;
+          background: transparent !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .mk-slides {
+          padding: 0 !important;
+          padding-top: 0 !important;
+          margin: 0 !important;
+          background: transparent !important;
+        }
         .slide-wrap {
           page-break-after: always;
           break-after: page;
           margin: 0 !important;
           padding: 0 !important;
           display: block !important;
+          background: transparent !important;
+        }
+        .slide-wrap:last-child {
+          page-break-after: auto;
+          break-after: auto;
         }
         .slide-frame {
           width: ${A4L_W} !important;
@@ -1515,13 +1545,46 @@ const PrintCSS = () => {
           overflow: hidden !important;
           box-shadow: none !important;
           border-radius: 0 !important;
-          page-break-after: always;
-          break-after: page;
+          border: none !important;
+          outline: none !important;
+          vertical-align: top;
+          transform: translateZ(0);
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        /* Uma única quebra por lâmina: evita “faixa” clara entre frames (Chrome/Chromium PDF). */
+        .slide-frame {
+          page-break-after: auto !important;
+          break-after: auto !important;
         }
         .slide-frame section {
-          min-height: 0 !important;
-          height: 100% !important;
           overflow: hidden !important;
+          width: ${A4L_W} !important;
+          height: ${A4L_H} !important;
+          min-height: ${A4L_H} !important;
+          max-height: ${A4L_H} !important;
+          box-sizing: border-box !important;
+          margin: 0 !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        img {
+          max-width: 100%;
+        }
+        .mk-inst-logo {
+          filter: none !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          image-rendering: auto;
+        }
+        .mk-logo-cell {
+          height: 92px !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+        .mk-pgnum {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
         }
       }
       @media screen {
