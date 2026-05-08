@@ -475,8 +475,8 @@ const S3 = () => (
       <Slot
         src={IMG_DAVIALE}
         alt="Davi e Alessandra"
-        h={400}
-        w={260}
+        h={480}
+        w={310}
         pos="top center"
         style={{ overflow: "hidden" }}
       />
