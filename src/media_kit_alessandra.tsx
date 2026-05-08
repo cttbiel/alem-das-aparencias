@@ -24,9 +24,10 @@ const A4L_H = "210mm";
 
 /* ── IMAGENS (/assets/) ─────────────────────────────────────────────────── */
 const IMG_CAPA = "/assets/Alessandra centralizada mão no rosto.png";
-const IMG_DAVIALE = "/assets/Davi e Alessandra fantasiados.jpg";
+const IMG_DAVIALE = "/assets/Davi e Alessandra fantasiados.png";
 const IMG_PALCO1 = "/assets/Alessandra contando histórias 1.jpg";
 const IMG_PALCO2 = "/assets/Alessandra contando histórias 2.jpg";
+const IMG_NEURODIVERGENT = "/assets/neurodiverso.png";
 const TOTAL_PAGES = 9;
 
 /* ── ÍCONE CHECK (formatos cumulativos) ─────────────────────────────────── */
@@ -519,9 +520,22 @@ const S3 = () => (
         <div style={{ width: "100%", height: 1, backgroundColor: C.border }} />
 
         <div style={leftBorder}>
-          <h3 style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 600, color: C.terracotta, margin: 0, fontStyle: "italic" }}>
-            Davi
-          </h3>
+          <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 6 }}>
+            <h3 style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 600, color: C.terracotta, margin: 0, fontStyle: "italic" }}>
+              Davi
+            </h3>
+            <img
+              src={IMG_NEURODIVERGENT}
+              alt=""
+              aria-hidden
+              style={{
+                height: 14,
+                width: "auto",
+                display: "block",
+                flexShrink: 0,
+              }}
+            />
+          </div>
           <p
             style={{
               fontFamily: SANS,
@@ -818,7 +832,7 @@ const fmts: Array<{
     title: "Formação ampliada",
     dur: "Palestra show + encontro",
     rec: false,
-    desc: "Após a palestra show, encontro aprofundado com profissionais da educação ou da saúde para levar o vivido à prática.",
+    desc: "Após a palestra show, encontro aprofundado com famílias e profissionais da educação e/ou da saúde para levar o vivido à prática.",
     itens: [
       { variant: "base", txt: "Todo o conteúdo da Sensibilização (formato 01)" },
       { variant: "new", txt: "Encontro com profissionais da educação ou da saúde" },
@@ -842,6 +856,7 @@ const fmts: Array<{
 
 const S6 = () => (
   <section
+    className="mk-s6"
     style={{
       height: "100%",
       width: "100%",
@@ -944,9 +959,12 @@ const S6 = () => (
         >
           {fmts.map((f, i) => {
             const isPro = i === 1;
+            const variant = f.rec ? "rec" : isPro ? "pro" : "base";
             return (
               <div
                 key={i}
+                className="mk-s6-card"
+                data-variant={variant}
                 style={{
                   background: f.rec
                     ? C.brick
@@ -971,6 +989,7 @@ const S6 = () => (
                 }}
               >
                 <div
+                  className="mk-s6-card-tail"
                   style={{
                     position: "absolute",
                     top: -8,
@@ -1081,6 +1100,7 @@ const S6 = () => (
                   {f.itens.map(({ variant, txt }, j) => (
                     <div
                       key={j}
+                      className="mk-s6-item-row"
                       style={{
                         display: "flex",
                         gap: 9,
@@ -1626,6 +1646,51 @@ const PrintCSS = () => {
         .mk-pgnum {
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
+        }
+        /* iOS PDF renderer hardening (Slide 6 cards only). */
+        .mk-s6 .mk-s6-card {
+          box-shadow: none !important;
+          filter: none !important;
+          background-image: none !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="base"] {
+          background: ${C.card} !important;
+          border-color: ${C.border} !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="pro"] {
+          background: #F8F1E2 !important;
+          border-color: #D6B57D !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="rec"] {
+          background: ${C.brick} !important;
+          border-color: ${C.wheat} !important;
+        }
+        .mk-s6 .mk-s6-card-tail {
+          background-image: none !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="base"] .mk-s6-card-tail {
+          background: ${C.card} !important;
+          border-top-color: ${C.border} !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="pro"] .mk-s6-card-tail {
+          background: #F8F1E2 !important;
+          border-top-color: #C49D60 !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="rec"] .mk-s6-card-tail {
+          background: #5C2617 !important;
+          border-top-color: ${C.wheat} !important;
+        }
+        .mk-s6 .mk-s6-item-row {
+          border-bottom-color: currentColor !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="base"] .mk-s6-item-row {
+          border-bottom-color: ${C.border} !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="pro"] .mk-s6-item-row {
+          border-bottom-color: #C49D60 !important;
+        }
+        .mk-s6 .mk-s6-card[data-variant="rec"] .mk-s6-item-row {
+          border-bottom-color: #B58B4A !important;
         }
       }
       @media screen {
