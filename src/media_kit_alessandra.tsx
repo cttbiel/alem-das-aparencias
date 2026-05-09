@@ -28,7 +28,9 @@ const IMG_DAVIALE = "/assets/Davi e Alessandra fantasiados.png";
 const IMG_PALCO1 = "/assets/Alessandra contando histórias 1.jpg";
 const IMG_PALCO2 = "/assets/Alessandra contando histórias 2.jpg";
 const IMG_NEURODIVERGENT = "/assets/neurodiverso.png";
-const TOTAL_PAGES = 9;
+const IMG_VESTIDO_REEL = "/assets/AlessandraVestido 1080 1960.png";
+const REEL_ALEM_APARENCIAS_URL = "https://www.instagram.com/reels/C5hDq7-uSuq/";
+const TOTAL_PAGES = 10;
 
 /* ── ÍCONE CHECK (formatos cumulativos) ─────────────────────────────────── */
 type CheckVariant = "base" | "new";
@@ -179,11 +181,11 @@ const PgNum = ({ n, light, onPhoto }: { n: number; light?: boolean; onPhoto?: bo
       bottom: 20,
       right: 28,
       letterSpacing: "0.18em",
-      color: onPhoto ? "#FBF8F2" : light ? C.wheatPale : C.muted,
-      opacity: onPhoto ? 0.92 : light ? 0.65 : 0.55,
-      textShadow: onPhoto ? "0 1px 2px rgba(0,0,0,0.75), 0 0 14px rgba(0,0,0,0.35)" : undefined,
-      backgroundColor: onPhoto ? "rgba(24,10,5,0.52)" : "transparent",
-      border: onPhoto ? "1px solid rgba(255,255,255,0.2)" : "none",
+      color: onPhoto ? C.brick : light ? C.wheatPale : C.muted,
+      opacity: onPhoto ? 0.82 : light ? 0.65 : 0.55,
+      textShadow: undefined,
+      backgroundColor: onPhoto ? "rgba(250,247,241,0.72)" : "transparent",
+      border: onPhoto ? `1px solid ${C.border}` : "none",
       borderRadius: onPhoto ? 999 : 0,
       padding: onPhoto ? "3px 9px" : 0,
       WebkitPrintColorAdjust: onPhoto ? "exact" : undefined,
@@ -202,7 +204,7 @@ const S1 = () => (
       width: "100%",
       backgroundColor: C.light,
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "52% 48%",
       position: "relative",
       overflow: "hidden",
       boxSizing: "border-box",
@@ -793,14 +795,6 @@ const S5 = () => (
       ) : (
         <Slot src={null} alt="" h="100%" w="100%" pos="center center" dark radius={0} />
       )}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          background: "linear-gradient(180deg, rgba(0,0,0,0) 68%, rgba(24,10,5,0.55) 100%)",
-        }}
-      />
     </div>
     <PgNum n={5} onPhoto />
   </section>
@@ -1343,7 +1337,120 @@ const S8 = () => (
   </section>
 );
 
-/* ── S9 · CONTATO ─────────────────────────────────────────────────────────── */
+/* ── S9 · O ENCONTRO (registro do encontro) ───────────────────────────────────── */
+const S9 = () => (
+  <section
+    className="mk-s9"
+    style={{
+      height: "100%",
+      width: "100%",
+      backgroundColor: C.light,
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      boxSizing: "border-box",
+      position: "relative",
+      overflow: "hidden",
+    }}
+  >
+    <div
+      style={{
+        padding: "44px 38px 42px 44px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 16,
+        backgroundColor: C.light,
+        position: "relative",
+        borderRight: `1px solid ${C.border}`,
+      }}
+    >
+      <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 460, textAlign: "center", alignItems: "center" }}>
+        <Lbl ch="o encontro" />
+        <h2
+          style={{
+            fontFamily: SERIF,
+            fontSize: "clamp(22px,2.5vw,32px)",
+            fontWeight: 600,
+            color: C.dark,
+            lineHeight: 1.28,
+            margin: 0,
+          }}
+        >
+          Quando a palavra se faz afeto.
+        </h2>
+        <Rule w={48} />
+        <p
+          style={{
+            fontFamily: SERIF,
+            fontStyle: "italic",
+            fontSize: "clamp(13px,1.35vw,15.5px)",
+            color: C.body,
+            lineHeight: 1.95,
+            margin: 0,
+          }}
+        >
+          Há um instante em que a história deixa de ser de quem conta e passa a ser de quem escuta. Este pequeno recorte do <span style={{ color: C.brick, fontStyle: "italic" }}>Além das Aparências</span> é uma janela para essa troca. Um convite gentil para você perceber a atmosfera, a leveza e a verdade que preenchem a sala quando nos permitimos apenas sentir.
+        </p>
+      </div>
+
+      <a
+        href={REEL_ALEM_APARENCIAS_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mk-s9-cta"
+        style={{
+          alignSelf: "center",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: 12,
+          padding: "13px 26px",
+          borderRadius: 999,
+          textDecoration: "none",
+          fontFamily: SANS,
+          fontSize: 12,
+          fontWeight: 500,
+          letterSpacing: "0.06em",
+          color: C.brick,
+          backgroundColor: C.card,
+          border: `1px solid ${C.border}`,
+          boxShadow: "0 6px 22px rgba(24,10,5,0.06)",
+        }}
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill={C.terracotta} aria-hidden>
+          <path d="M8 5v14l11-7L8 5z" />
+        </svg>
+        Ver no Instagram
+      </a>
+    </div>
+      <div
+      style={{
+        position: "relative",
+        display: "block",
+        height: "100%",
+        overflow: "hidden",
+        backgroundColor: C.mid,
+        textDecoration: "none",
+        color: "inherit",
+      }}
+    >
+      <img
+        src={IMG_VESTIDO_REEL}
+        alt="Alessandra em cena no encontro Além das Aparências"
+        style={{
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center center",
+          display: "block",
+        }}
+      />
+    </div>
+    <PgNum n={9} onPhoto />
+  </section>
+);
+
+/* ── S10 · CONTATO ─────────────────────────────────────────────────────────── */
 const WA_NUMBER = "5531993701428";
 const ctaItems = [
   {
@@ -1387,7 +1494,7 @@ const ctaItems = [
   },
 ];
 
-const S9 = () => (
+const S10 = () => (
   <section
     style={{
       height: "100%",
@@ -1537,7 +1644,7 @@ const S9 = () => (
         }}
       />
     </div>
-    <PgNum n={9} light />
+    <PgNum n={10} light />
   </section>
 );
 
@@ -1647,6 +1754,10 @@ const PrintCSS = () => {
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
+        .mk-s9 a {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
         /* iOS PDF renderer hardening (Slide 6 cards only). */
         .mk-s6 .mk-s6-card {
           box-shadow: none !important;
@@ -1739,7 +1850,8 @@ const SLIDES = [
   { lbl: "Formatos", C: S6 },
   { lbl: "Quem já confiou", C: S7 },
   { lbl: "Depoimentos", C: S8 },
-  { lbl: "Contato", C: S9 },
+  { lbl: "Vídeo", C: S9 },
+  { lbl: "Contato", C: S10 },
 ];
 
 export default function App() {
