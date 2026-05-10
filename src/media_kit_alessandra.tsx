@@ -1414,7 +1414,6 @@ const S9 = () => (
           color: C.brick,
           backgroundColor: C.card,
           border: `1px solid ${C.border}`,
-          boxShadow: "0 6px 22px rgba(24,10,5,0.06)",
         }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill={C.terracotta} aria-hidden>
@@ -1758,6 +1757,11 @@ const PrintCSS = () => {
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
+        /* iOS PDF: shadow on links rasterizes as a dirty rect — match Slide 6 hardening. */
+        .mk-s9 .mk-s9-cta {
+          box-shadow: none !important;
+          filter: none !important;
+        }
         /* iOS PDF renderer hardening (Slide 6 cards only). */
         .mk-s6 .mk-s6-card {
           box-shadow: none !important;
@@ -1805,6 +1809,9 @@ const PrintCSS = () => {
         }
       }
       @media screen {
+        .mk-s9 .mk-s9-cta {
+          box-shadow: 0 6px 22px rgba(24,10,5,0.06);
+        }
         .slide-wrap {
           display: flex;
           justify-content: center;
