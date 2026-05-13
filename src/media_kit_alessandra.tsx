@@ -674,21 +674,7 @@ const S4 = () => (
   </section>
 );
 
-/* ── S5 · O IMPACTO ───────────────────────────────────────────────────────── */
-const audiences = [
-  {
-    t: "Famílias",
-    d: "Acolhimento para quem vive a jornada atípica — menos solidão, mais pertencimento.",
-  },
-  {
-    t: "Educadores",
-    d: "Mais sensibilidade ao autismo e práticas mais humanas na escola e no dia a dia.",
-  },
-  {
-    t: "Organizações",
-    d: "Cultura de inclusão que nasce de histórias reais, não só de normas e protocolos.",
-  },
-];
+/* ── S5 · PÚBLICO-ALVO ─────────────────────────────────────────────────────── */
 const S5 = () => (
   <section
     style={{
@@ -707,65 +693,60 @@ const S5 = () => (
   >
     <div
       style={{
-        padding: "34px 30px 34px 44px",
+        padding: "40px 48px",
         display: "flex",
         flexDirection: "column",
-        gap: 18,
+        gap: 0,
         boxSizing: "border-box",
         justifyContent: "center",
+        alignItems: "center",
         minHeight: 0,
         overflow: "hidden",
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 11, maxWidth: 610 }}>
-        <Lbl ch="O Impacto" />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 14,
+          width: "100%",
+          maxWidth: 580,
+          boxSizing: "border-box",
+        }}
+      >
+        <Lbl ch="Público-alvo" />
         <h2
           style={{
             fontFamily: SERIF,
-            fontSize: "clamp(22px,2.6vw,36px)",
+            fontSize: "clamp(22px,2.6vw,34px)",
             fontWeight: 700,
             color: C.dark,
-            lineHeight: 1.2,
+            lineHeight: 1.22,
             margin: 0,
           }}
         >
-          Caminhos mais gentis.
+          Para quem tecemos esta experiência?
         </h2>
         <Rule />
         <p
           style={{
             fontFamily: SANS,
-            fontSize: "clamp(11px,1.1vw,13px)",
+            fontSize: "clamp(13.5px,1.18vw,16px)",
+            fontWeight: 400,
             color: C.body,
-            lineHeight: 1.75,
+            lineHeight: 1.72,
             margin: 0,
+            textAlign: "left",
           }}
         >
-          Cada palavra nasce de um lugar real — e convida a ver a diferença como cuidado, não como problema a corrigir.
+          Famílias, profissionais da educação, profissionais de apoio escolar, profissionais da saúde — e{" "}
+          <strong style={{ fontWeight: 700, color: C.dark }}>todas as pessoas</strong> que compreendem a importância
+          de olhar{" "}
+          <span style={{ fontFamily: SERIF, fontStyle: "italic", fontWeight: 600, color: C.brick }}>
+            Além das Aparências
+          </span>
+          .
         </p>
-      </div>
-
-      <div style={{ display: "flex", flexDirection: "column", gap: 11, width: "100%", maxWidth: 610, marginTop: 4 }}>
-        {audiences.map(({ t, d }, i) => (
-          <div
-            key={i}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 7,
-              padding: "14px 16px",
-              borderLeft: `4px solid ${C.terracotta}`,
-              borderTop: `1px solid ${C.border}`,
-              borderRight: `1px solid ${C.border}`,
-              borderBottom: `1px solid ${C.border}`,
-              backgroundColor: "#F5ECDD",
-              borderRadius: 12,
-            }}
-          >
-            <h3 style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 700, color: C.brick, margin: 0 }}>{t}</h3>
-            <p style={{ fontFamily: SANS, fontSize: 12.5, color: C.body, lineHeight: 1.72, margin: 0 }}>{d}</p>
-          </div>
-        ))}
       </div>
     </div>
 
@@ -1414,6 +1395,7 @@ const S9 = () => (
           color: C.brick,
           backgroundColor: C.card,
           border: `1px solid ${C.border}`,
+          boxShadow: "0 6px 22px rgba(24,10,5,0.06)",
         }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill={C.terracotta} aria-hidden>
@@ -1451,9 +1433,14 @@ const S9 = () => (
 
 /* ── S10 · CONTATO ─────────────────────────────────────────────────────────── */
 const WA_NUMBER = "5531993701428";
+/** Pré-texto ao abrir o WhatsApp (href com `?text=` — funciona em PDF ao clicar no link). */
+const WA_PREFILL_MESSAGE =
+  "Olá, Alessandra! Vi sua apresentação sobre o Além das Aparências e gostaria de conversar mais sobre possibilidades de parceria.";
+const WA_HREF = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_PREFILL_MESSAGE)}`;
+
 const ctaItems = [
   {
-    href: `https://wa.me/${WA_NUMBER}`,
+    href: WA_HREF,
     label: "+55 31 99370-1428",
     sub: "WhatsApp",
     color: "#25D366",
@@ -1757,11 +1744,6 @@ const PrintCSS = () => {
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
-        /* iOS PDF: shadow on links rasterizes as a dirty rect — match Slide 6 hardening. */
-        .mk-s9 .mk-s9-cta {
-          box-shadow: none !important;
-          filter: none !important;
-        }
         /* iOS PDF renderer hardening (Slide 6 cards only). */
         .mk-s6 .mk-s6-card {
           box-shadow: none !important;
@@ -1809,9 +1791,6 @@ const PrintCSS = () => {
         }
       }
       @media screen {
-        .mk-s9 .mk-s9-cta {
-          box-shadow: 0 6px 22px rgba(24,10,5,0.06);
-        }
         .slide-wrap {
           display: flex;
           justify-content: center;
@@ -1853,7 +1832,7 @@ const SLIDES = [
   { lbl: "O Convite", C: S2 },
   { lbl: "A Jornada", C: S3 },
   { lbl: "A Experiência", C: S4 },
-  { lbl: "O Impacto", C: S5 },
+  { lbl: "Público-alvo", C: S5 },
   { lbl: "Formatos", C: S6 },
   { lbl: "Quem já confiou", C: S7 },
   { lbl: "Depoimentos", C: S8 },
