@@ -725,7 +725,7 @@ const S5 = () => (
             margin: 0,
           }}
         >
-          Para quem tecemos esta experiência?
+          A rede que tecemos juntos.
         </h2>
         <Rule />
         <p
@@ -1395,7 +1395,6 @@ const S9 = () => (
           color: C.brick,
           backgroundColor: C.card,
           border: `1px solid ${C.border}`,
-          boxShadow: "0 6px 22px rgba(24,10,5,0.06)",
         }}
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill={C.terracotta} aria-hidden>
@@ -1740,7 +1739,14 @@ const PrintCSS = () => {
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
-        .mk-s9 a {
+        /* iOS PDF: box-shadow em pílula vira retângulo borrado — só borda/fundo sólidos no PDF. */
+        .mk-s9-cta {
+          box-shadow: none !important;
+          filter: none !important;
+          background-image: none !important;
+          background: ${C.card} !important;
+          border: 1px solid ${C.border} !important;
+          color: ${C.brick} !important;
           -webkit-print-color-adjust: exact;
           print-color-adjust: exact;
         }
@@ -1791,6 +1797,9 @@ const PrintCSS = () => {
         }
       }
       @media screen {
+        .mk-s9-cta {
+          box-shadow: 0 6px 22px rgba(24,10,5,0.06);
+        }
         .slide-wrap {
           display: flex;
           justify-content: center;
