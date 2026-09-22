@@ -11,3 +11,5 @@ cursor.txt
 claude_code_brief.md
 # Prevent uploading proposal PDFs from project root
 /*.pdf
+*.mp4
+*.MP4

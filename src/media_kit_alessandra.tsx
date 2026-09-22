@@ -34,8 +34,15 @@ const TOTAL_PAGES = 10;
 
 /* ── ÍCONE CHECK (formatos cumulativos) ─────────────────────────────────── */
 type CheckVariant = "base" | "new";
-const IconCheck = ({ variant, onDark }: { variant: CheckVariant; onDark?: boolean }) => {
-  const stroke = variant === "new" ? (onDark ? C.wheatPale : C.terracotta) : C.wheat;
+const IconCheck = ({
+  variant,
+  onDark,
+}: {
+  variant: CheckVariant;
+  onDark?: boolean;
+}) => {
+  const stroke =
+    variant === "new" ? (onDark ? C.wheatPale : C.terracotta) : C.wheat;
   return (
     <svg
       width="14"
@@ -70,6 +77,7 @@ const Slot = ({
   style = {},
   dark = false,
   radius = 14,
+  className = "",
 }: {
   src: string | null;
   alt?: string;
@@ -79,6 +87,7 @@ const Slot = ({
   style?: CSSProperties;
   dark?: boolean;
   radius?: number;
+  className?: string;
 }) => {
   const base: CSSProperties = {
     height: h,
@@ -92,6 +101,7 @@ const Slot = ({
       <img
         src={src}
         alt={alt}
+        className={className}
         style={{
           ...base,
           objectFit: "cover",
@@ -102,6 +112,7 @@ const Slot = ({
     );
   return (
     <div
+      className={className}
       style={{
         ...base,
         borderRadius: radius,
@@ -169,7 +180,15 @@ const Rule = ({ light, w = 56 }: { light?: boolean; w?: number }) => (
     }}
   />
 );
-const PgNum = ({ n, light, onPhoto }: { n: number; light?: boolean; onPhoto?: boolean }) => (
+const PgNum = ({
+  n,
+  light,
+  onPhoto,
+}: {
+  n: number;
+  light?: boolean;
+  onPhoto?: boolean;
+}) => (
   <p
     className="mk-pgnum"
     data-on-photo={onPhoto ? "true" : undefined}
@@ -199,6 +218,7 @@ const PgNum = ({ n, light, onPhoto }: { n: number; light?: boolean; onPhoto?: bo
 /* ── S1 · CAPA ───────────────────────────────────────────────────────────── */
 const S1 = () => (
   <section
+    className="mk-s1"
     style={{
       height: "100%",
       width: "100%",
@@ -224,6 +244,7 @@ const S1 = () => (
       <Lbl ch="Encontro de Sensibilização" />
       <div style={{ display: "flex", flexDirection: "column", gap: 22 }}>
         <h1
+          className="mk-s1-hero-title"
           style={{
             fontFamily: SERIF,
             fontSize: "clamp(36px,4.2vw,72px)",
@@ -252,21 +273,32 @@ const S1 = () => (
             margin: 0,
           }}
         >
-          Vivências de uma mãe atípica e o encontro com o autismo pelo olhar materno
+          Experiências e vivências de uma criança autista pelo olhar materno
         </p>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-        <p style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 600, color: C.brick, margin: 0 }}>
+        <p
+          style={{
+            fontFamily: SERIF,
+            fontSize: 18,
+            fontWeight: 600,
+            color: C.brick,
+            margin: 0,
+          }}
+        >
           Alessandra Nogueira
         </p>
-        <p style={{ fontFamily: SANS, fontSize: 12, color: C.muted, margin: 0 }}>
-          Contadora de Histórias · Mãe Atípica
+        <p
+          style={{ fontFamily: SANS, fontSize: 12, color: C.muted, margin: 0 }}
+        >
+          Mãe Atípica · Contadora de Histórias · Palestrante
         </p>
       </div>
     </div>
 
     {/* Coluna direita — fundo claro editorial + bolinhas; foto apoiada na base */}
     <div
+      className="mk-s1-photo-box"
       style={{
         margin: 0,
         padding: 0,
@@ -332,11 +364,54 @@ const S1 = () => (
           }}
         />
       ) : (
-        <div style={{ position: "relative", zIndex: 1, height: "100%", width: "100%" }}>
-          <Slot src={null} alt="" h="100%" w="100%" pos="bottom center" dark={false} radius={0} />
+        <div
+          style={{
+            position: "relative",
+            zIndex: 1,
+            height: "100%",
+            width: "100%",
+          }}
+        >
+          <Slot
+            src={null}
+            alt=""
+            h="100%"
+            w="100%"
+            pos="bottom center"
+            dark={false}
+            radius={0}
+          />
         </div>
       )}
     </div>
+
+    {/* Ações diretas no mobile */}
+    <div className="mk-mobile-only mk-mobile-actions">
+      <a
+        href="/Alem_das_Aparencias_Alessandra_Nogueira.pdf"
+        download="Além das Aparências - Alessandra Nogueira.pdf"
+        className="mk-btn-primary"
+      >
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+          <polyline points="7 10 12 15 17 10" />
+          <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+        <span>Baixar Media Kit (PDF)</span>
+      </a>
+      <a
+        href="https://wa.me/5531993701428?text=Ol%C3%A1%20Alessandra%2C%20vi%20o%20seu%20Media%20Kit%20Al%C3%A9m%20das%20Apar%C3%AAncias%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20palestras."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mk-btn-secondary"
+      >
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+        </svg>
+        <span>Falar no WhatsApp</span>
+      </a>
+    </div>
+
     <PgNum n={1} />
   </section>
 );
@@ -344,6 +419,7 @@ const S1 = () => (
 /* ── S2 · O CONVITE (inalterado) ─────────────────────────────────────────── */
 const S2 = () => (
   <section
+    className="mk-s2"
     style={{
       height: "100%",
       width: "100%",
@@ -410,7 +486,9 @@ const S2 = () => (
           margin: 0,
         }}
       >
-        "Não vim trazer respostas prontas. Vim trazer o que tenho de mais verdadeiro: a minha história — com tudo que ela carrega de dor, de descoberta e de amor."
+        "Não vim trazer respostas prontas. Vim trazer o que tenho de mais
+        verdadeiro: a minha história — com tudo que ela carrega de dor, de
+        descoberta e de amor."
       </p>
       <p
         style={{
@@ -422,7 +500,11 @@ const S2 = () => (
           margin: 0,
         }}
       >
-        O projeto nasce da vivência de Alessandra como mãe atípica e se constrói como um encontro humano — onde narrativas, canções e momentos de leveza contam histórias reais do cotidiano: o processo do diagnóstico, os desafios, as descobertas e, sobretudo, os afetos que atravessam essa jornada.
+        O projeto nasce da vivência de Alessandra como mãe atípica e se constrói
+        como um encontro humano — onde narrativas, canções e momentos de leveza
+        contam histórias reais do cotidiano: o processo do diagnóstico, os
+        desafios, as descobertas e, sobretudo, os afetos que atravessam essa
+        jornada.
       </p>
       <p
         style={{
@@ -434,7 +516,9 @@ const S2 = () => (
           margin: 0,
         }}
       >
-        Mais do que uma palestra informativa, é uma experiência de sensibilização — um espaço em que teoria e vida se encontram, e onde cada pessoa é convidada a simplesmente sentir.
+        Mais do que uma palestra informativa, é uma experiência de
+        sensibilização — um espaço em que teoria e vida se encontram, e onde
+        cada pessoa é convidada a simplesmente sentir.
       </p>
     </div>
     <PgNum n={2} />
@@ -451,6 +535,7 @@ const leftBorder = {
 };
 const S3 = () => (
   <section
+    className="mk-s3"
     style={{
       height: "100%",
       width: "100%",
@@ -480,6 +565,7 @@ const S3 = () => (
         h={480}
         w={310}
         pos="top center"
+        className="mk-s3-photo"
         style={{ overflow: "hidden" }}
       />
       <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
@@ -503,7 +589,16 @@ const S3 = () => (
         </div>
 
         <div style={leftBorder}>
-          <h3 style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 600, color: C.terracotta, margin: 0, fontStyle: "italic" }}>
+          <h3
+            style={{
+              fontFamily: SERIF,
+              fontSize: 17,
+              fontWeight: 600,
+              color: C.terracotta,
+              margin: 0,
+              fontStyle: "italic",
+            }}
+          >
             Alessandra
           </h3>
           <p
@@ -515,15 +610,37 @@ const S3 = () => (
               margin: 0,
             }}
           >
-            Há mais de vinte anos ela semeia palavras como quem planta jardins invisíveis. Já atravessou cidades, deixando um pouco de si em cada margem e recolhendo histórias como conchas raras. Quando o diagnóstico do filho chegou, encontrou na narrativa a forma mais honesta de atravessá-lo — e transformou a jornada em missão: compartilhar o que viveu para que outras famílias não se sintam tão sozinhas.
+            Há mais de vinte anos ela semeia palavras como quem planta jardins
+            invisíveis. Já atravessou cidades, deixando um pouco de si em cada
+            margem e recolhendo histórias como conchas raras. Quando o
+            diagnóstico do filho chegou, encontrou na narrativa a forma mais
+            honesta de atravessá-lo — e transformou a jornada em missão:
+            compartilhar o que viveu para que outras famílias não se sintam tão
+            sozinhas.
           </p>
         </div>
 
         <div style={{ width: "100%", height: 1, backgroundColor: C.border }} />
 
         <div style={leftBorder}>
-          <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 6 }}>
-            <h3 style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 600, color: C.terracotta, margin: 0, fontStyle: "italic" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: 6,
+            }}
+          >
+            <h3
+              style={{
+                fontFamily: SERIF,
+                fontSize: 17,
+                fontWeight: 600,
+                color: C.terracotta,
+                margin: 0,
+                fontStyle: "italic",
+              }}
+            >
               Davi
             </h3>
             <img
@@ -547,7 +664,12 @@ const S3 = () => (
               margin: 0,
             }}
           >
-            Aos 12 anos, Davi carrega no peito um coração largo — desses que parecem sempre dizer "sim" para o mundo, mesmo quando o mundo ainda está aprendendo a entendê-lo. Seus pensamentos são como um céu cheio de estrelas: intensos, múltiplos, brilhantes. Ele não cabe em rótulos. É um universo em descoberta, com um jeito único de sentir, perceber e amar.
+            Aos 12 anos, Davi carrega no peito um coração largo — desses que
+            parecem sempre dizer "sim" para o mundo, mesmo quando o mundo ainda
+            está aprendendo a entendê-lo. Seus pensamentos são como um céu cheio
+            de estrelas: intensos, múltiplos, brilhantes. Ele não cabe em
+            rótulos. É um universo em descoberta, com um jeito único de sentir,
+            perceber e amar.
           </p>
         </div>
       </div>
@@ -558,15 +680,34 @@ const S3 = () => (
 
 /* ── S4 · A EXPERIÊNCIA ───────────────────────────────────────────────────── */
 const benefits = [
-  { t: "Escuta que acolhe", d: "Espaço para desacelerar e reconectar com emoções e vínculos." },
-  { t: "Histórias que transformam", d: "Narrativas reais com leveza e poesia — voz, música, cotidiano." },
-  { t: "Teoria que vira vida", d: "Conhecimento sobre o autismo encontra a experiência vivida." },
-  { t: "Ambiente seguro", d: "Sem julgamento: histórias, pausas e respeito às diferenças." },
-  { t: "Uma pausa necessária", d: "Convite a sair do automático e olhar com mais cuidado." },
-  { t: "Memória que permanece", d: "O que toca de verdade continua ecoando depois do encontro." },
+  {
+    t: "Escuta que acolhe",
+    d: "Espaço para desacelerar e reconectar com emoções e vínculos.",
+  },
+  {
+    t: "Histórias que transformam",
+    d: "Narrativas reais com leveza e poesia — voz, música, cotidiano.",
+  },
+  {
+    t: "Teoria que vira vida",
+    d: "Conhecimento sobre o autismo encontra a experiência vivida.",
+  },
+  {
+    t: "Ambiente seguro",
+    d: "Sem julgamento: histórias, pausas e respeito às diferenças.",
+  },
+  {
+    t: "Uma pausa necessária",
+    d: "Convite a sair do automático e olhar com mais cuidado.",
+  },
+  {
+    t: "Memória que permanece",
+    d: "O que toca de verdade continua ecoando depois do encontro.",
+  },
 ];
 const S4 = () => (
   <section
+    className="mk-s4"
     style={{
       height: "100%",
       width: "100%",
@@ -582,6 +723,7 @@ const S4 = () => (
     }}
   >
     <div
+      className="mk-s4-photo-box"
       style={{
         height: "100%",
         minHeight: 0,
@@ -607,7 +749,15 @@ const S4 = () => (
           }}
         />
       ) : (
-        <Slot src={null} alt="" h="100%" w="100%" pos="center" dark radius={0} />
+        <Slot
+          src={null}
+          alt=""
+          h="100%"
+          w="100%"
+          pos="center"
+          dark
+          radius={0}
+        />
       )}
     </div>
 
@@ -641,6 +791,7 @@ const S4 = () => (
       </div>
 
       <div
+        className="mk-s4-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -662,10 +813,29 @@ const S4 = () => (
               minHeight: 0,
             }}
           >
-            <h3 style={{ fontFamily: SERIF, fontSize: 14, fontWeight: 600, color: C.dark, margin: 0, lineHeight: 1.3 }}>
+            <h3
+              style={{
+                fontFamily: SERIF,
+                fontSize: 14,
+                fontWeight: 600,
+                color: C.dark,
+                margin: 0,
+                lineHeight: 1.3,
+              }}
+            >
               {t}
             </h3>
-            <p style={{ fontFamily: SANS, fontSize: 11.5, color: C.body, lineHeight: 1.65, margin: 0 }}>{d}</p>
+            <p
+              style={{
+                fontFamily: SANS,
+                fontSize: 11.5,
+                color: C.body,
+                lineHeight: 1.65,
+                margin: 0,
+              }}
+            >
+              {d}
+            </p>
           </div>
         ))}
       </div>
@@ -677,6 +847,7 @@ const S4 = () => (
 /* ── S5 · PÚBLICO-ALVO ─────────────────────────────────────────────────────── */
 const S5 = () => (
   <section
+    className="mk-s5"
     style={{
       height: "100%",
       width: "100%",
@@ -739,10 +910,20 @@ const S5 = () => (
             textAlign: "left",
           }}
         >
-          Famílias, profissionais da educação, profissionais de apoio escolar, profissionais da saúde — e{" "}
-          <strong style={{ fontWeight: 700, color: C.dark }}>todas as pessoas</strong> que compreendem a importância
-          de olhar{" "}
-          <span style={{ fontFamily: SERIF, fontStyle: "italic", fontWeight: 600, color: C.brick }}>
+          Famílias, profissionais da educação, profissionais de apoio escolar,
+          profissionais da saúde — e{" "}
+          <strong style={{ fontWeight: 700, color: C.dark }}>
+            todas as pessoas
+          </strong>{" "}
+          que compreendem a importância de olhar{" "}
+          <span
+            style={{
+              fontFamily: SERIF,
+              fontStyle: "italic",
+              fontWeight: 600,
+              color: C.brick,
+            }}
+          >
             Além das Aparências
           </span>
           .
@@ -751,6 +932,7 @@ const S5 = () => (
     </div>
 
     <div
+      className="mk-s5-photo-box"
       style={{
         height: "100%",
         minHeight: 0,
@@ -774,7 +956,15 @@ const S5 = () => (
           }}
         />
       ) : (
-        <Slot src={null} alt="" h="100%" w="100%" pos="center center" dark radius={0} />
+        <Slot
+          src={null}
+          alt=""
+          h="100%"
+          w="100%"
+          pos="center center"
+          dark
+          radius={0}
+        />
       )}
     </div>
     <PgNum n={5} onPhoto />
@@ -799,7 +989,10 @@ const fmts: Array<{
     itens: [
       { variant: "new", txt: "Palestra show com narrativa e canções" },
       { variant: "new", txt: "Formato solo ou duo com músico ao vivo" },
-      { variant: "new", txt: "Até 90 minutos em auditórios e espaços coletivos" },
+      {
+        variant: "new",
+        txt: "Até 90 minutos em auditórios e espaços coletivos",
+      },
     ],
   },
   {
@@ -809,8 +1002,14 @@ const fmts: Array<{
     rec: false,
     desc: "Após a palestra show, encontro aprofundado com famílias e profissionais da educação e/ou da saúde para levar o vivido à prática.",
     itens: [
-      { variant: "base", txt: "Todo o conteúdo da Sensibilização (formato 01)" },
-      { variant: "new", txt: "Encontro com profissionais da educação ou da saúde" },
+      {
+        variant: "base",
+        txt: "Todo o conteúdo da Sensibilização (formato 01)",
+      },
+      {
+        variant: "new",
+        txt: "Encontro com profissionais da educação ou da saúde",
+      },
       { variant: "new", txt: "Reflexão guiada e ferramentas para o cotidiano" },
     ],
   },
@@ -821,7 +1020,10 @@ const fmts: Array<{
     rec: true,
     desc: "Jornada contínua para instituições que buscam mudança real na cultura — além do dia do encontro.",
     itens: [
-      { variant: "base", txt: "Todo o conteúdo da Formação ampliada (formatos 01 e 02)" },
+      {
+        variant: "base",
+        txt: "Todo o conteúdo da Formação ampliada (formatos 01 e 02)",
+      },
       { variant: "new", txt: "Encontro dedicado com educadores" },
       { variant: "new", txt: "Roda de conversa com famílias" },
       { variant: "new", txt: "Apoio à rede e acompanhamento" },
@@ -924,6 +1126,7 @@ const S6 = () => (
         }}
       >
         <div
+          className="mk-s6-cards-container"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
@@ -941,14 +1144,14 @@ const S6 = () => (
                 className="mk-s6-card"
                 data-variant={variant}
                 style={{
-                  background: f.rec
-                    ? C.brick
-                    : isPro
-                      ? "#F8F1E2"
-                      : C.card,
+                  background: f.rec ? C.brick : isPro ? "#F8F1E2" : C.card,
                   borderRadius: 18,
                   padding: "22px 20px 18px",
-                  border: f.rec ? `1px solid ${C.wheat}28` : isPro ? `1.5px solid ${C.wheat}88` : `1px solid ${C.border}`,
+                  border: f.rec
+                    ? `1px solid ${C.wheat}28`
+                    : isPro
+                      ? `1.5px solid ${C.wheat}88`
+                      : `1px solid ${C.border}`,
                   boxShadow: f.rec
                     ? "0 10px 32px rgba(24,10,5,0.22)"
                     : isPro
@@ -981,8 +1184,22 @@ const S6 = () => (
                   {f.n}
                 </div>
 
-                <div style={{ display: "flex", flexDirection: "column", gap: 5, position: "relative" }}>
-                  <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 5,
+                    position: "relative",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexWrap: "wrap",
+                      gap: 8,
+                    }}
+                  >
                     <span
                       style={{
                         fontFamily: SANS,
@@ -990,7 +1207,11 @@ const S6 = () => (
                         fontWeight: 700,
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
-                        color: f.rec ? C.wheatPale : isPro ? C.ochre : C.terracotta,
+                        color: f.rec
+                          ? C.wheatPale
+                          : isPro
+                            ? C.ochre
+                            : C.terracotta,
                       }}
                     >
                       {f.n}
@@ -1039,7 +1260,18 @@ const S6 = () => (
                   </p>
                 </div>
 
-                <div style={{ width: 28, height: 2.5, backgroundColor: f.rec ? C.wheat : isPro ? C.ochre : C.terracotta, borderRadius: 1 }} />
+                <div
+                  style={{
+                    width: 28,
+                    height: 2.5,
+                    backgroundColor: f.rec
+                      ? C.wheat
+                      : isPro
+                        ? C.ochre
+                        : C.terracotta,
+                    borderRadius: 1,
+                  }}
+                />
 
                 <p
                   style={{
@@ -1062,7 +1294,11 @@ const S6 = () => (
                     marginTop: 6,
                     paddingTop: 12,
                     borderTop: `1px solid ${f.rec ? C.wheat + "38" : isPro ? "#B58B4A88" : C.border}`,
-                    backgroundColor: f.rec ? "rgba(0,0,0,0.14)" : isPro ? "#F8F1E2" : "rgba(253,250,244,0.95)",
+                    backgroundColor: f.rec
+                      ? "rgba(0,0,0,0.14)"
+                      : isPro
+                        ? "#F8F1E2"
+                        : "rgba(253,250,244,0.95)",
                     marginLeft: -20,
                     marginRight: -20,
                     marginBottom: -18,
@@ -1081,7 +1317,10 @@ const S6 = () => (
                         gap: 9,
                         alignItems: "flex-start",
                         padding: "5px 0",
-                        borderBottom: j < f.itens.length - 1 ? `1px solid ${f.rec ? "#ffffff18" : isPro ? "#B58B4A55" : C.border + "99"}` : "none",
+                        borderBottom:
+                          j < f.itens.length - 1
+                            ? `1px solid ${f.rec ? "#ffffff18" : isPro ? "#B58B4A55" : C.border + "99"}`
+                            : "none",
                       }}
                     >
                       <IconCheck variant={variant} onDark={f.rec} />
@@ -1089,9 +1328,21 @@ const S6 = () => (
                         style={{
                           fontFamily: SANS,
                           fontSize: 11.5,
-                          color: variant === "new" ? (f.rec ? C.wheatPale : isPro ? "#2E1A0B" : C.body) : f.rec ? "#C8A870" : isPro ? "#7A5522" : C.muted,
+                          color:
+                            variant === "new"
+                              ? f.rec
+                                ? C.wheatPale
+                                : isPro
+                                  ? "#2E1A0B"
+                                  : C.body
+                              : f.rec
+                                ? "#C8A870"
+                                : isPro
+                                  ? "#7A5522"
+                                  : C.muted,
                           lineHeight: 1.5,
-                          fontWeight: variant === "new" ? (isPro ? 600 : 500) : 400,
+                          fontWeight:
+                            variant === "new" ? (isPro ? 600 : 500) : 400,
                         }}
                       >
                         {txt}
@@ -1130,6 +1381,7 @@ const trustedBy = [
 
 const S7 = () => (
   <section
+    className="mk-s7"
     style={{
       height: "100%",
       width: "100%",
@@ -1143,8 +1395,24 @@ const S7 = () => (
       overflow: "hidden",
     }}
   >
-    <div style={{ width: "100%", maxWidth: 1080, display: "flex", flexDirection: "column", gap: 20 }}>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 10 }}>
+    <div
+      style={{
+        width: "100%",
+        maxWidth: 1080,
+        display: "flex",
+        flexDirection: "column",
+        gap: 20,
+      }}
+    >
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          textAlign: "center",
+          gap: 10,
+        }}
+      >
         <Lbl ch="Prova de confiança" />
         <h2
           style={{
@@ -1159,12 +1427,24 @@ const S7 = () => (
           Quem já caminhou com essa história.
         </h2>
         <Rule />
-        <p style={{ fontFamily: SANS, fontSize: 12, color: C.body, lineHeight: 1.7, margin: 0, maxWidth: 680 }}>
-          Escolas, instituições culturais e organizações que confiaram no trabalho da Alessandra para abrir conversas mais humanas sobre inclusão.
+        <p
+          style={{
+            fontFamily: SANS,
+            fontSize: 12,
+            color: C.body,
+            lineHeight: 1.7,
+            margin: 0,
+            maxWidth: 680,
+          }}
+        >
+          Escolas, instituições culturais e organizações que confiaram no
+          trabalho da Alessandra para abrir conversas mais humanas sobre
+          inclusão.
         </p>
       </div>
 
       <div
+        className="mk-s7-logos-grid"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(5, minmax(0, 1fr))",
@@ -1220,7 +1500,8 @@ const socialProof: Array<{ quote: string; author: string; role?: string }> = [
     author: "Rosangela",
   },
   {
-    quote: "Sempre com uma palavra que fala aos nossos corações. Você é sensacional!",
+    quote:
+      "Sempre com uma palavra que fala aos nossos corações. Você é sensacional!",
     author: "EMEI Floramar",
     role: "Instituição de ensino",
   },
@@ -1228,6 +1509,7 @@ const socialProof: Array<{ quote: string; author: string; role?: string }> = [
 
 const S8 = () => (
   <section
+    className="mk-s8"
     style={{
       height: "100%",
       width: "100%",
@@ -1239,13 +1521,29 @@ const S8 = () => (
       overflow: "hidden",
     }}
   >
-    <div style={{ position: "relative", backgroundColor: "#1f0d08", overflow: "hidden" }}>
-      <Slot src="/assets/AlessandraVestidoEscada.png" alt="Alessandra sorrindo" h="100%" w="100%" pos="center top" dark radius={0} />
+    <div
+      className="mk-s8-photo-box"
+      style={{
+        position: "relative",
+        backgroundColor: "#1f0d08",
+        overflow: "hidden",
+      }}
+    >
+      <Slot
+        src="/assets/AlessandraVestidoEscada.png"
+        alt="Alessandra sorrindo"
+        h="100%"
+        w="100%"
+        pos="center top"
+        dark
+        radius={0}
+      />
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.34) 100%)",
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.34) 100%)",
           pointerEvents: "none",
         }}
       />
@@ -1260,7 +1558,14 @@ const S8 = () => (
         justifyContent: "center",
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 580 }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 10,
+          maxWidth: 580,
+        }}
+      >
         <Lbl ch="Palavras que acolhem" />
         <h2
           style={{
@@ -1346,7 +1651,16 @@ const S9 = () => (
         borderRight: `1px solid ${C.border}`,
       }}
     >
-      <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 460, textAlign: "center", alignItems: "center" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: 14,
+          maxWidth: 460,
+          textAlign: "center",
+          alignItems: "center",
+        }}
+      >
         <Lbl ch="o encontro" />
         <h2
           style={{
@@ -1371,7 +1685,14 @@ const S9 = () => (
             margin: 0,
           }}
         >
-          Há um instante em que a história deixa de ser de quem conta e passa a ser de quem escuta. Este pequeno recorte do <span style={{ color: C.brick, fontStyle: "italic" }}>Além das Aparências</span> é uma janela para essa troca. Um convite gentil para você perceber a atmosfera, a leveza e a verdade que preenchem a sala quando nos permitimos apenas sentir.
+          Há um instante em que a história deixa de ser de quem conta e passa a
+          ser de quem escuta. Este pequeno recorte do{" "}
+          <span style={{ color: C.brick, fontStyle: "italic" }}>
+            Além das Aparências
+          </span>{" "}
+          é uma janela para essa troca. Um convite gentil para você perceber a
+          atmosfera, a leveza e a verdade que preenchem a sala quando nos
+          permitimos apenas sentir.
         </p>
       </div>
 
@@ -1397,13 +1718,20 @@ const S9 = () => (
           border: `1px solid ${C.border}`,
         }}
       >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill={C.terracotta} aria-hidden>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill={C.terracotta}
+          aria-hidden
+        >
           <path d="M8 5v14l11-7L8 5z" />
         </svg>
-        Ver no Instagram
+        Acompanhar no Instagram
       </a>
     </div>
-      <div
+    <div
+      className="mk-s9-phone-wrap"
       style={{
         position: "relative",
         display: "block",
@@ -1445,7 +1773,13 @@ const ctaItems = [
     color: "#25D366",
     blank: true,
     ico: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        aria-hidden
+      >
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
       </svg>
     ),
@@ -1457,7 +1791,16 @@ const ctaItems = [
     color: C.wheat,
     blank: false,
     ico: (
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+      <svg
+        width="19"
+        height="19"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        aria-hidden
+      >
         <rect x="2" y="4" width="20" height="16" rx="3" />
         <path d="M22 7 12 13 2 7" />
       </svg>
@@ -1470,10 +1813,44 @@ const ctaItems = [
     color: "#E0A0C0",
     blank: true,
     ico: (
-      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
+      <svg
+        width="19"
+        height="19"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        aria-hidden
+      >
         <rect x="2" y="2" width="20" height="20" rx="5" />
         <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+    ),
+  },
+  {
+    href: "/Alem_das_Aparencias_Alessandra_Nogueira.pdf",
+    label: "Baixar Media Kit Oficial (PDF)",
+    sub: "Download do Arquivo",
+    color: "#E2CEAA",
+    blank: false,
+    download: "Além das Aparências - Alessandra Nogueira.pdf",
+    ico: (
+      <svg
+        width="19"
+        height="19"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden
+      >
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+        <polyline points="7 10 12 15 17 10" />
+        <line x1="12" y1="15" x2="12" y2="3" />
       </svg>
     ),
   },
@@ -1481,6 +1858,7 @@ const ctaItems = [
 
 const S10 = () => (
   <section
+    className="mk-s10"
     style={{
       height: "100%",
       width: "100%",
@@ -1497,10 +1875,43 @@ const S10 = () => (
       overflow: "hidden",
     }}
   >
-    <div style={{ position: "absolute", top: -80, left: -80, width: 280, height: 280, borderRadius: "50%", backgroundColor: C.terracotta, opacity: 0.1, pointerEvents: "none" }} />
-    <div style={{ position: "absolute", bottom: -60, right: -60, width: 240, height: 240, borderRadius: "50%", backgroundColor: C.ochre, opacity: 0.08, pointerEvents: "none" }} />
+    <div
+      style={{
+        position: "absolute",
+        top: -80,
+        left: -80,
+        width: 280,
+        height: 280,
+        borderRadius: "50%",
+        backgroundColor: C.terracotta,
+        opacity: 0.1,
+        pointerEvents: "none",
+      }}
+    />
+    <div
+      style={{
+        position: "absolute",
+        bottom: -60,
+        right: -60,
+        width: 240,
+        height: 240,
+        borderRadius: "50%",
+        backgroundColor: C.ochre,
+        opacity: 0.08,
+        pointerEvents: "none",
+      }}
+    />
 
-    <div style={{ display: "flex", flexDirection: "column", gap: 12, alignItems: "center", position: "relative", maxWidth: 520 }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 12,
+        alignItems: "center",
+        position: "relative",
+        maxWidth: 520,
+      }}
+    >
       <Lbl ch="Contato" light />
       <h2
         style={{
@@ -1517,13 +1928,23 @@ const S10 = () => (
       <Rule light w={48} />
     </div>
 
-    <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%", maxWidth: 420, position: "relative" }}>
-      {ctaItems.map(({ href, label, sub, color, blank, ico }, i) => (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        gap: 12,
+        width: "100%",
+        maxWidth: 420,
+        position: "relative",
+      }}
+    >
+      {ctaItems.map(({ href, label, sub, color, blank, ico, download }, i) => (
         <a
           key={i}
           href={href}
           target={blank ? "_blank" : undefined}
           rel="noopener noreferrer"
+          download={download || undefined}
           style={{
             display: "flex",
             alignItems: "center",
@@ -1552,7 +1973,15 @@ const S10 = () => (
           >
             {ico}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2, textAlign: "left" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              gap: 2,
+              textAlign: "left",
+            }}
+          >
             <span
               style={{
                 fontFamily: SANS,
@@ -1583,6 +2012,7 @@ const S10 = () => (
     </div>
 
     <div
+      className="mk-s10-footer"
       style={{
         position: "absolute",
         bottom: 22,
@@ -1796,7 +2226,7 @@ const PrintCSS = () => {
           border-bottom-color: #B58B4A !important;
         }
       }
-      @media screen {
+      @media screen and (min-width: 961px) {
         .mk-s9-cta {
           box-shadow: 0 6px 22px rgba(24,10,5,0.06);
         }
@@ -1871,57 +2301,73 @@ export default function App() {
   useEffect(() => {
     const obs = refs.current.map((el, i) => {
       if (!el) return null;
-      const o = new IntersectionObserver(([e]) => {
-        if (e.isIntersecting) setActive(i);
-      }, { threshold: 0.35 });
+      const o = new IntersectionObserver(
+        ([e]) => {
+          if (e.isIntersecting) setActive(i);
+        },
+        { threshold: 0.35 },
+      );
       o.observe(el);
       return o;
     });
     return () => obs.forEach((o) => o?.disconnect());
   }, []);
 
-  const go = (i: number) => refs.current[i]?.scrollIntoView({ behavior: "smooth" });
+  const go = (i: number) =>
+    refs.current[i]?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <div className="mk-root" style={{ fontFamily: SANS, backgroundColor: "#e8e4dc", minHeight: "100vh" }}>
+    <div
+      className="mk-root"
+      style={{
+        fontFamily: SANS,
+        backgroundColor: "#e8e4dc",
+        minHeight: "100vh",
+      }}
+    >
       <PrintCSS />
-      <nav
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 1000,
-          backgroundColor: "rgba(250,247,241,0.96)",
-          backdropFilter: "blur(14px)",
-          borderBottom: `1px solid ${C.border}`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "10px 20px",
-        }}
-      >
-        <span style={{ fontFamily: SERIF, fontSize: 13, fontWeight: 600, color: C.brick, letterSpacing: "0.02em" }}>
-          Alessandra Nogueira · Além das Aparências
-        </span>
-        <div style={{ display: "flex", gap: 4, alignItems: "center", flexWrap: "wrap", justifyContent: "flex-end" }}>
+      <nav className="mk-nav">
+        <div className="mk-nav-top">
+          <div className="mk-nav-brand">
+            <span className="mk-nav-name">Alessandra Nogueira</span>
+            <span className="mk-nav-tag">· Além das Aparências</span>
+          </div>
+          <div className="mk-nav-actions">
+            <a
+              href="/Alem_das_Aparencias_Alessandra_Nogueira.pdf"
+              download="Além das Aparências - Alessandra Nogueira.pdf"
+              className="mk-nav-btn mk-nav-btn-pdf"
+              title="Baixar Media Kit em PDF"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>Baixar PDF</span>
+            </a>
+            <a
+              href="https://wa.me/5531993701428?text=Ol%C3%A1%20Alessandra%2C%20vi%20o%20seu%20Media%20Kit%20Al%C3%A9m%20das%20Apar%C3%AAncias%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20palestras."
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mk-nav-btn mk-nav-btn-wpp"
+              title="Conversar no WhatsApp"
+            >
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+              </svg>
+              <span>WhatsApp</span>
+            </a>
+          </div>
+        </div>
+
+        <div className="mk-nav-pills">
           {SLIDES.map(({ lbl }, i) => (
             <button
               key={lbl}
               type="button"
               onClick={() => go(i)}
-              style={{
-                padding: "4px 10px",
-                borderRadius: 20,
-                cursor: "pointer",
-                fontFamily: SANS,
-                fontSize: 10,
-                fontWeight: active === i ? 600 : 400,
-                border: `1px solid ${active === i ? C.brick : C.border}`,
-                backgroundColor: active === i ? C.brick : "transparent",
-                color: active === i ? "#FAF7F1" : C.muted,
-                transition: "all 0.2s ease",
-              }}
+              className={`mk-pill ${active === i ? "mk-pill-active" : ""}`}
             >
               {lbl}
             </button>
@@ -1931,7 +2377,13 @@ export default function App() {
 
       <div className="mk-slides" style={{ paddingTop: 52 }}>
         {SLIDES.map(({ C: Comp, lbl }, i) => (
-          <div key={lbl} className="slide-wrap" ref={(el) => { refs.current[i] = el; }}>
+          <div
+            key={lbl}
+            className="slide-wrap"
+            ref={(el) => {
+              refs.current[i] = el;
+            }}
+          >
             <div className="slide-frame">
               <Comp />
             </div>
