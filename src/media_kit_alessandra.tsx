@@ -2281,6 +2281,7 @@ const SLIDES = [
 
 export default function App() {
   const [active, setActive] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
   const refs = useRef<Array<HTMLDivElement | null>>([]);
 
   useEffect(() => {
@@ -2299,6 +2300,17 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
     const obs = refs.current.map((el, i) => {
       if (!el) return null;
       const o = new IntersectionObserver(
@@ -2313,8 +2325,9 @@ export default function App() {
     return () => obs.forEach((o) => o?.disconnect());
   }, []);
 
-  const go = (i: number) =>
+  const go = (i: number) => {
     refs.current[i]?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div
@@ -2326,56 +2339,169 @@ export default function App() {
       }}
     >
       <PrintCSS />
-      <nav className="mk-nav">
-        <div className="mk-nav-top">
-          <div className="mk-nav-brand">
-            <span className="mk-nav-name">Alessandra Nogueira</span>
-            <span className="mk-nav-tag">· Além das Aparências</span>
-          </div>
-          <div className="mk-nav-actions">
+      
+      {/* ── HEADER PROFISSIONAL (ANDAR ÚNICO) ─────────────────────────────────── */}
+      <header className="mk-header">
+        <div className="mk-header-inner">
+          <a
+            href="#capa"
+            onClick={(e) => {
+              e.preventDefault();
+              go(0);
+            }}
+            className="mk-brand"
+          >
+            <span className="mk-brand-name">Alessandra Nogueira</span>
+            <span className="mk-brand-tag">· Além das Aparências</span>
+          </a>
+
+          {/* Links Desktop (>= 1024px) */}
+          <nav className="mk-desktop-nav">
+            {SLIDES.map(({ lbl }, i) => (
+              <button
+                key={lbl}
+                type="button"
+                onClick={() => go(i)}
+                className={`mk-nav-link ${active === i ? "mk-nav-link-active" : ""}`}
+              >
+                {lbl}
+              </button>
+            ))}
+          </nav>
+
+          {/* Ações à Direita */}
+          <div className="mk-header-actions">
             <a
               href="/Alem_das_Aparencias_Alessandra_Nogueira.pdf"
               download="Além das Aparências - Alessandra Nogueira.pdf"
-              className="mk-nav-btn mk-nav-btn-pdf"
-              title="Baixar Media Kit em PDF"
+              className="mk-btn-pdf"
+              title="Baixar Media Kit Oficial em PDF"
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden
+              >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
               </svg>
               <span>Baixar PDF</span>
             </a>
+
+            {/* Hambúrguer (< 1024px) */}
+            <button
+              type="button"
+              onClick={() => setMenuOpen(!menuOpen)}
+              className={`mk-hamburger ${menuOpen ? "mk-hamburger-open" : ""}`}
+              aria-label={menuOpen ? "Fechar menu" : "Abrir menu de navegação"}
+            >
+              <span className="mk-ham-bar" />
+              <span className="mk-ham-bar" />
+              <span className="mk-ham-bar" />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* ── DRAWER MOBILE (SLIDE-OVER LATERAL COM DESFOQUE) ───────────────────── */}
+      <div
+        className={`mk-drawer-overlay ${menuOpen ? "mk-drawer-open" : ""}`}
+        onClick={() => setMenuOpen(false)}
+      >
+        <div className="mk-drawer" onClick={(e) => e.stopPropagation()}>
+          <div className="mk-drawer-header">
+            <div>
+              <span className="mk-drawer-title">Além das Aparências</span>
+              <span className="mk-drawer-sub">Alessandra Nogueira · Media Kit</span>
+            </div>
+            <button
+              type="button"
+              onClick={() => setMenuOpen(false)}
+              className="mk-drawer-close"
+              aria-label="Fechar menu"
+            >
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+
+          <nav className="mk-drawer-nav">
+            {SLIDES.map(({ lbl }, i) => (
+              <button
+                key={lbl}
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  go(i);
+                }}
+                className={`mk-drawer-item ${active === i ? "mk-drawer-item-active" : ""}`}
+              >
+                <span className="mk-drawer-num">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="mk-drawer-label">{lbl}</span>
+                {active === i && <span className="mk-drawer-dot" />}
+              </button>
+            ))}
+          </nav>
+
+          <div className="mk-drawer-footer">
+            <a
+              href="/Alem_das_Aparencias_Alessandra_Nogueira.pdf"
+              download="Além das Aparências - Alessandra Nogueira.pdf"
+              className="mk-drawer-btn-pdf"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>Baixar Media Kit (PDF)</span>
+            </a>
+
             <a
               href="https://wa.me/5531993701428?text=Ol%C3%A1%20Alessandra%2C%20vi%20o%20seu%20Media%20Kit%20Al%C3%A9m%20das%20Apar%C3%AAncias%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20palestras."
               target="_blank"
               rel="noopener noreferrer"
-              className="mk-nav-btn mk-nav-btn-wpp"
-              title="Conversar no WhatsApp"
+              className="mk-drawer-link-wpp"
             >
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
-                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
               </svg>
-              <span>WhatsApp</span>
+              <span>Falar no WhatsApp</span>
             </a>
           </div>
         </div>
+      </div>
 
-        <div className="mk-nav-pills">
-          {SLIDES.map(({ lbl }, i) => (
-            <button
-              key={lbl}
-              type="button"
-              onClick={() => go(i)}
-              className={`mk-pill ${active === i ? "mk-pill-active" : ""}`}
-            >
-              {lbl}
-            </button>
-          ))}
-        </div>
-      </nav>
-
-      <div className="mk-slides" style={{ paddingTop: 52 }}>
+      <div className="mk-slides">
         {SLIDES.map(({ C: Comp, lbl }, i) => (
           <div
             key={lbl}
